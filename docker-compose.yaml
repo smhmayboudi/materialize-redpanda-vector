@@ -1,0 +1,175 @@
+# https://heroiclabs.com/docs/nakama/getting-started/install/docker/
+services:
+
+  cockroach:
+    container_name: cockroach
+    command:
+      - start-single-node
+      - --insecure
+      - --store=attrs=ssd,path=/var/lib/cockroach/
+    healthcheck:
+      interval: 60s
+      retries: 6
+      start_period: 10s
+      test: curl -f http://localhost:8080/health
+      timeout: 60s
+    image: cockroachdb/cockroach:v21.2.10
+    ports:
+      - 8080:8080
+      - 26257:26257
+    restart: "no"
+    volumes:
+      - cockroach:/var/lib/cockroach
+
+  nakama:
+    container_name: nakama
+    depends_on:
+      cockroach:
+        condition: service_healthy
+    entrypoint:
+      - "/bin/sh"
+      - "-ecx"
+      - >
+        /nakama/nakama migrate up --database.address root@cockroach:26257 &&
+        exec /nakama/nakama --config=/etc/nakama/config.yaml
+    healthcheck:
+      interval: 60s
+      retries: 6
+      start_period: 10s
+      test: curl -f http://nakama:7350
+      timeout: 60s
+    image: heroiclabs/nakama:3.11.0
+    ports:
+      - 7348:7348 # gRPC API embedded developer
+      - 7349:7349 # gRPC API
+      - 7350:7350 # HTTP API
+      - 7351:7351 # HTTP API embedded developer
+      - 9100:9100 # Prometheus
+    restart: "no"
+    volumes:
+      - ./nakama.yaml:/etc/nakama/config.yaml:ro
+      - nakama:/nakama/data
+
+  # EXCUTE SQLS TO SETUP
+  materialize-cli:
+    entrypoint:
+      - "/bin/sh"
+      - "-ecx"
+      - >
+        exec /usr/bin/psql --file=/materialize-cli.sql postgres://materialize@materialized:6875/materialize
+    command:
+      - --host=materialize
+      - --no-password
+      - --port=6875 materialize
+      - --username=materialize
+    container_name: materialize-cli
+    depends_on:
+      materialized:
+        condition: service_healthy
+    image: materialize/cli:v0.26.0
+    restart: "no"
+    volumes:
+      - ./materialize-cli.sql:/materialize-cli.sql
+
+# https://materialize.com/docs/cli/
+  materialized:
+    command:
+      - --data-directory=/data
+      - --disable-telemetry
+      - --introspection-frequency=1s
+      - --listen-addr=0.0.0.0:6875
+      - --log-filter=info
+      - --logical-compaction-window=1s
+      - --metrics-scraping-interval=30s
+      - --workers=1
+    container_name: materialized
+    depends_on:
+      redpanda:
+        condition: service_healthy
+    healthcheck:
+      interval: 60s
+      retries: 6
+      start_period: 10s
+      test: curl -f http://materialized:6875
+      timeout: 60s
+    image: materialize/materialized:v0.26.0
+    ports:
+      - 6875:6875
+    restart: "no"
+    volumes:
+      # - ./materialized.yaml:/etc/materialized/config.yaml:ro
+      - materialized:/mzdata
+
+# https://docs.redpanda.com/docs/cluster-administration/configuration/
+  redpanda:
+    command:
+      - redpanda
+      - start
+      # - --redpanda-cfg=/etc/redpanda/config.yaml
+      - --advertise-kafka-addr=PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
+      - --advertise-pandaproxy-addr=localhost:8082
+      - --check=false
+      - --default-log-level=info
+      - --kafka-addr=PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - --memory=1G
+      - --node-id=0
+      - --overprovisioned
+      - --pandaproxy-addr=0.0.0.0:8082
+      - --reserve-memory=0M
+      - --set redpanda.enable_idempotence=true
+      - --set redpanda.enable_transactions=true
+      - --smp=1
+    container_name: redpanda
+    healthcheck:
+      interval: 60s
+      retries: 6
+      start_period: 10s
+      test: curl -f http://redpanda:8081/schemas/types
+      timeout: 60s
+    image: vectorized/redpanda:v21.11.15
+    ports:
+      - 8081:8081 # schema registry api
+      - 8082:8082 # panda proxy api
+      - 9092:9092 # kafka api
+      - 29092:29092 # CONNECT FROM APPS
+      - 9644:9644 # admin api
+    restart: "no"
+    volumes:
+      # - ./redpanda.yaml:/etc/redpanda/config.yaml:ro
+      - redpanda:/var/lib/redpanda/data
+
+# https://docs.redpanda.com/docs/cluster-administration/configuration/
+  vector:
+    command:
+      - --color=never
+      - --config=/etc/timberio-vector/config.yaml
+      - --log-format=json
+      - --require-healthy=true
+    container_name: vector
+    depends_on:
+      redpanda:
+        condition: service_healthy
+      materialize-cli:
+        condition: service_completed_successfully
+      materialized:
+        condition: service_healthy
+    healthcheck:
+      interval: 60s
+      retries: 6
+      start_period: 10s
+      test: curl -f http://vector:8686/health
+      timeout: 60s
+    image: timberio/vector:0.21.1-debian
+    ports:
+      - 8686:8686
+    restart: "no"
+    volumes:
+      - ./timberio-vector.yaml:/etc/timberio-vector/config.yaml:ro
+      - vector:/var/lib/vector
+
+volumes:
+  cockroach:
+  materialized:
+  nakama:
+  redpanda:
+  vector:
