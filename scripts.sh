@@ -5,9 +5,9 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-# docker exec -it redpanda rpk topic create chat-room-sink --brokers=localhost:9092
-# docker exec -it redpanda rpk topic produce chat-room-sink --brokers=localhost:9092
-# docker exec -it redpanda rpk topic consume chat-room-sink --brokers=localhost:9092
+# docker exec -it redpanda rpk topic create chat-room --brokers=localhost:9092
+# docker exec -it redpanda rpk topic produce chat-room --brokers=localhost:9092
+# docker exec -it redpanda rpk topic consume chat-room --brokers=localhost:9092
 
 # [Help]()
 # docker exec -it redpanda redpanda --help

@@ -7,10 +7,13 @@ services:
       - start-single-node
       - --insecure
       - --store=attrs=ssd,path=/var/lib/cockroach/
+    expose:
+      - 8080
+      - 26257
     healthcheck:
-      interval: 60s
-      retries: 6
-      start_period: 10s
+      interval: 10s
+      retries: 1
+      start_period: 2s
       test: curl -f http://localhost:8080/health
       timeout: 60s
     image: cockroachdb/cockroach:v21.2.10
@@ -32,10 +35,16 @@ services:
       - >
         /nakama/nakama migrate up --database.address root@cockroach:26257 &&
         exec /nakama/nakama --config=/etc/nakama/config.yaml
+    expose:
+      - 7348
+      - 7349
+      - 7350
+      - 7351
+      - 9100
     healthcheck:
-      interval: 60s
-      retries: 6
-      start_period: 10s
+      interval: 10s
+      retries: 1
+      start_period: 2s
       test: curl -f http://nakama:7350
       timeout: 60s
     image: heroiclabs/nakama:3.11.0
@@ -47,6 +56,7 @@ services:
       - 9100:9100 # Prometheus
     restart: "no"
     volumes:
+      - ./nakama-modules/build:/nakama/data/modules:ro
       - ./nakama.yaml:/etc/nakama/config.yaml:ro
       - nakama:/nakama/data
 
@@ -86,10 +96,12 @@ services:
     depends_on:
       redpanda:
         condition: service_healthy
+    expose:
+      - 6875
     healthcheck:
-      interval: 60s
-      retries: 6
-      start_period: 10s
+      interval: 10s
+      retries: 1
+      start_period: 2s
       test: curl -f http://materialized:6875
       timeout: 60s
     image: materialize/materialized:v0.26.0
@@ -120,10 +132,16 @@ services:
       - --set redpanda.enable_transactions=true
       - --smp=1
     container_name: redpanda
+    expose:
+      - 8081
+      - 8082
+      - 9092
+      - 29092
+      - 9644
     healthcheck:
-      interval: 60s
-      retries: 6
-      start_period: 10s
+      interval: 10s
+      retries: 1
+      start_period: 2s
       test: curl -f http://redpanda:8081/schemas/types
       timeout: 60s
     image: vectorized/redpanda:v21.11.15
@@ -153,10 +171,12 @@ services:
         condition: service_completed_successfully
       materialized:
         condition: service_healthy
+    expose:
+      - 8686
     healthcheck:
-      interval: 60s
-      retries: 6
-      start_period: 10s
+      interval: 10s
+      retries: 1
+      start_period: 2s
       test: curl -f http://vector:8686/health
       timeout: 60s
     image: timberio/vector:0.21.1-debian

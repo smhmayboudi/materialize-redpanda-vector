@@ -1,0 +1,13 @@
+{
+  "name": "nakama-data-modules",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "nakama-runtime": "https://github.com/heroiclabs/nakama-common/archive/refs/tags/v1.22.0.tar.gz"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  },
+  "type": "module"
+}
