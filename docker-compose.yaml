@@ -15,10 +15,10 @@ services:
       - 26257
     healthcheck:
       interval: 10s
-      retries: 1
+      retries: 5
       start_period: 5s
       test: curl -f http://cockroach:8080/health
-      timeout: 60s
+      timeout: 5s
     image: cockroachdb/cockroach:v21.2.10
     ports:
       - 8080:8080
@@ -48,10 +48,10 @@ services:
       - 9100
     healthcheck:
       interval: 10s
-      retries: 1
+      retries: 5
       start_period: 5s
       test: curl -f http://nakama:7350
-      timeout: 60s
+      timeout: 5s
     image: heroiclabs/nakama:3.11.0
     ports:
       - 7348:7348 # gRPC API embedded developer
@@ -61,7 +61,7 @@ services:
       - 9100:9100 # Prometheus
     restart: "no"
     volumes:
-      - ./nakama-modules/build:/nakama/data/modules:ro
+      - ./nakama-modules-go/build:/nakama/data/modules:ro
       - ./nakama.yaml:/etc/nakama/config.yaml:ro
       - nakama:/nakama/data
 
@@ -105,10 +105,10 @@ services:
 #       - 6875
 #     healthcheck:
 #       interval: 10s
-#       retries: 1
+#       retries: 5
 #       start_period: 5s
 #       test: curl -f http://materialized:6875
-#       timeout: 60s
+#       timeout: 5s
 #     image: materialize/materialized:v0.26.0
 #     ports:
 #       - 6875:6875
@@ -145,10 +145,10 @@ services:
       - 9644
     healthcheck:
       interval: 10s
-      retries: 1
+      retries: 5
       start_period: 5s
       test: curl -f http://redpanda:8081/schemas/types
-      timeout: 60s
+      timeout: 5s
     image: vectorized/redpanda:v21.11.15
     ports:
       - 8081:8081 # schema registry api
@@ -180,10 +180,10 @@ services:
 #       - 8686
 #     healthcheck:
 #       interval: 10s
-#       retries: 1
+#       retries: 5
 #       start_period: 5s
 #       test: curl -f http://vector:8686/health
-#       timeout: 60s
+#       timeout: 5s
 #     image: timberio/vector:0.21.1-debian
 #     ports:
 #       - 8686:8686
