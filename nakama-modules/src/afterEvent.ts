@@ -1,4 +1,4 @@
-const afterEvent: nkruntime.AfterHookFunction<void, nkruntime.EventRequest> = (
+const afterEvent: nkruntime.AfterHookFunction<void, nkruntime.Event> = (
   ctx,
   logger,
   nk,

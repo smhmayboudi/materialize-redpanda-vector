@@ -1,4 +1,4 @@
-const afterLinkApple: nkruntime.AfterHookFunction<void, nkruntime.LinkAppleRequest> = (
+const afterLinkApple: nkruntime.AfterHookFunction<void, nkruntime.AccountApple> = (
   ctx,
   logger,
   nk,

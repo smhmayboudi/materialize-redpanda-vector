@@ -1,4 +1,4 @@
-const afterLinkEmail: nkruntime.AfterHookFunction<void, nkruntime.LinkEmailRequest> = (
+const afterLinkEmail: nkruntime.AfterHookFunction<void, nkruntime.AccountEmail> = (
   ctx,
   logger,
   nk,

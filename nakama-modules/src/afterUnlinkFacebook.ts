@@ -1,4 +1,4 @@
-const afterUnlinkFacebook: nkruntime.AfterHookFunction<void, nkruntime.UnlinkFacebookRequest> = (
+const afterUnlinkFacebook: nkruntime.AfterHookFunction<void, nkruntime.AccountFacebook> = (
   ctx,
   logger,
   nk,

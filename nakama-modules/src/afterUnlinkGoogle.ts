@@ -1,4 +1,4 @@
-const afterUnlinkGoogle: nkruntime.AfterHookFunction<void, nkruntime.UnlinkGoogleRequest> = (
+const afterUnlinkGoogle: nkruntime.AfterHookFunction<void, nkruntime.AccountGoogle> = (
   ctx,
   logger,
   nk,

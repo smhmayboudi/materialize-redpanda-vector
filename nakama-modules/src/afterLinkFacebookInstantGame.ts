@@ -1,4 +1,4 @@
-const afterLinkFacebookInstantGame: nkruntime.AfterHookFunction<void, nkruntime.LinkFacebookInstantGameRequest> = (
+const afterLinkFacebookInstantGame: nkruntime.AfterHookFunction<void, nkruntime.AccountFacebookInstantGame> = (
   ctx,
   logger,
   nk,

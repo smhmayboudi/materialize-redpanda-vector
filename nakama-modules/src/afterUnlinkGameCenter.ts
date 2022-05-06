@@ -1,4 +1,4 @@
-const afterUnlinkGameCenter: nkruntime.AfterHookFunction<void, nkruntime.UnlinkGameCenterRequest> = (
+const afterUnlinkGameCenter: nkruntime.AfterHookFunction<void, nkruntime.AccountGameCenter> = (
   ctx,
   logger,
   nk,

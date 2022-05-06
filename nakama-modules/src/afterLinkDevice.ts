@@ -1,4 +1,4 @@
-const afterLinkDevice: nkruntime.AfterHookFunction<void, nkruntime.LinkDeviceRequest> = (
+const afterLinkDevice: nkruntime.AfterHookFunction<void, nkruntime.AccountDevice> = (
   ctx,
   logger,
   nk,

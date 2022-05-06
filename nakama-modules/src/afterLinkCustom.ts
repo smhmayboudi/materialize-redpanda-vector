@@ -1,4 +1,4 @@
-const afterLinkCustom: nkruntime.AfterHookFunction<void, nkruntime.LinkCustomRequest> = (
+const afterLinkCustom: nkruntime.AfterHookFunction<void, nkruntime.AccountCustom> = (
   ctx,
   logger,
   nk,

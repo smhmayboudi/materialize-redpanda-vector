@@ -1,4 +1,4 @@
-const afterUnlinkSteam: nkruntime.AfterHookFunction<void, nkruntime.UnlinkSteamRequest> = (
+const afterUnlinkSteam: nkruntime.AfterHookFunction<void, nkruntime.AccountSteam> = (
   ctx,
   logger,
   nk,
