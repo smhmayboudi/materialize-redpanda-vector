@@ -1,7 +1,9 @@
-const beforeLinkApple: nkruntime.BeforeHookFunction<nkruntime.LinkAppleRequest> = (
+const beforeLinkApple: nkruntime.BeforeHookFunction<nkruntime.AccountApple> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeLinkApple", data });
+  return data;
+};

@@ -1,7 +1,9 @@
-const beforeUnlinkCustom: nkruntime.BeforeHookFunction<nkruntime.UnlinkCustomRequest> = (
+const beforeUnlinkCustom: nkruntime.BeforeHookFunction<nkruntime.AccountCustom> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeUnlinkCustom", data });
+  return data;
+};

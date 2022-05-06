@@ -4,4 +4,7 @@ const afterListGroupUsers: nkruntime.AfterHookFunction<nkruntime.GroupUserList, 
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterListGroupUsers", data, request });
+};
+

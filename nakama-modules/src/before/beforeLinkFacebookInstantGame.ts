@@ -1,7 +1,9 @@
-const beforeLinkFacebookInstantGame: nkruntime.BeforeHookFunction<nkruntime.LinkFacebookInstantGameRequest> = (
+const beforeLinkFacebookInstantGame: nkruntime.BeforeHookFunction<nkruntime.AccountFacebookInstantGame> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeLinkFacebookInstantGame", data });
+  return data;
+};

@@ -5,6 +5,7 @@ const afterChannelLeave: nkruntime.RtAfterHookFunction<nkruntime.Envelope> = (
   output,
   input
 ) => {
+  redpanda(ctx, logger, nk, { name: "afterChannelLeave", output, input });
   if (
     typeof (input as nkruntime.EnvelopeChannelLeave).channelLeave !==
     "undefined" &&
@@ -13,4 +14,5 @@ const afterChannelLeave: nkruntime.RtAfterHookFunction<nkruntime.Envelope> = (
     "undefined"
   ) {
   }
+  return output;
 };

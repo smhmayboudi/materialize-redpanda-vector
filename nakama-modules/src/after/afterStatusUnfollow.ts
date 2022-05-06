@@ -5,6 +5,7 @@ const afterStatusUnfollow: nkruntime.RtAfterHookFunction<nkruntime.Envelope> = (
   output,
   input
 ) => {
+  redpanda(ctx, logger, nk, { name: "afterStatusUnfollow", output, input });
   if (
     typeof (input as nkruntime.EnvelopeStatusUnfollow).statusUnfollow !==
     "undefined" &&
@@ -13,4 +14,5 @@ const afterStatusUnfollow: nkruntime.RtAfterHookFunction<nkruntime.Envelope> = (
     "undefined"
   ) {
   }
+  return output;
 };

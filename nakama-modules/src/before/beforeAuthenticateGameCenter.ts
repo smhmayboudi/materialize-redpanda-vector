@@ -2,6 +2,8 @@ const beforeAuthenticateGameCenter: nkruntime.BeforeHookFunction<nkruntime.Authe
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeAuthenticateGameCenter", data });
+  return data;
+};

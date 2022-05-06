@@ -4,4 +4,6 @@ const afterDeleteLeaderboardRecord: nkruntime.AfterHookFunction<void, nkruntime.
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterDeleteLeaderboardRecord", data, request });
+};

@@ -2,6 +2,8 @@ const beforeDeleteGroup: nkruntime.BeforeHookFunction<nkruntime.DeleteGroupReque
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeDeleteGroup", data });
+  return data;
+};

@@ -4,4 +4,6 @@ const afterAuthenticateDevice: nkruntime.AfterHookFunction<nkruntime.Session, nk
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterAuthenticateDevice", data, request });
+};

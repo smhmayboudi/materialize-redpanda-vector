@@ -2,6 +2,8 @@ const beforeListTournamentRecordsAroundOwner: nkruntime.BeforeHookFunction<nkrun
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListTournamentRecordsAroundOwner", data });
+  return data;
+};

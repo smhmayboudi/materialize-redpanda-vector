@@ -2,6 +2,8 @@ const beforeLinkSteam: nkruntime.BeforeHookFunction<nkruntime.LinkSteamRequest> 
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeLinkSteam", data });
+  return data;
+};

@@ -2,6 +2,8 @@ const beforeWriteStorageObjects: nkruntime.BeforeHookFunction<nkruntime.WriteSto
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeWriteStorageObjects", data });
+  return data;
+};

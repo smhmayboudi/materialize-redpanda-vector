@@ -4,4 +4,7 @@ const afterLinkDevice: nkruntime.AfterHookFunction<void, nkruntime.AccountDevice
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterLinkDevice", data, request });
+};
+

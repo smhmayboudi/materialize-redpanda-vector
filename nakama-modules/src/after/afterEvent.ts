@@ -4,4 +4,7 @@ const afterEvent: nkruntime.AfterHookFunction<void, nkruntime.Event> = (
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterEvent", data, request });
+};
+

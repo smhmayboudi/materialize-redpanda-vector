@@ -1,7 +1,9 @@
-const beforeLinkEmail: nkruntime.BeforeHookFunction<nkruntime.LinkEmailRequest> = (
+const beforeLinkEmail: nkruntime.BeforeHookFunction<nkruntime.AccountEmail> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeLinkEmail", data });
+  return data;
+};

@@ -2,6 +2,8 @@ const beforeListLeaderboardRecords: nkruntime.BeforeHookFunction<nkruntime.ListL
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListLeaderboardRecords", data });
+  return data;
+};

@@ -4,4 +4,7 @@ const afterValidatePurchaseApple: nkruntime.AfterHookFunction<nkruntime.Validate
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterValidatePurchaseApple", data, request });
+};
+

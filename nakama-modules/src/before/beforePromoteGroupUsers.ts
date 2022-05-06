@@ -2,6 +2,8 @@ const beforePromoteGroupUsers: nkruntime.BeforeHookFunction<nkruntime.PromoteGro
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforePromoteGroupUsers", data });
+  return data;
+};

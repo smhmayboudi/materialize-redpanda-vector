@@ -2,6 +2,8 @@ const beforeDemoteGroupUsers: nkruntime.BeforeHookFunction<nkruntime.DemoteGroup
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeDemoteGroupUsers", data });
+  return data;
+};

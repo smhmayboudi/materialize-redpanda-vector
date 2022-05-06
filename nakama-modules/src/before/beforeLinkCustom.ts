@@ -1,7 +1,9 @@
-const beforeLinkCustom: nkruntime.BeforeHookFunction<nkruntime.LinkCustomRequest> = (
+const beforeLinkCustom: nkruntime.BeforeHookFunction<nkruntime.AccountCustom> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeLinkCustom", data });
+  return data;
+};

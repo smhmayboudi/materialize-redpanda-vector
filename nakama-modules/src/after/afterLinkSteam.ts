@@ -4,4 +4,7 @@ const afterLinkSteam: nkruntime.AfterHookFunction<void, nkruntime.LinkSteamReque
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterLinkSteam", data, request });
+};
+

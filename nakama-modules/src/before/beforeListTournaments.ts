@@ -2,6 +2,8 @@ const beforeListTournaments: nkruntime.BeforeHookFunction<nkruntime.ListTourname
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListTournaments", data });
+  return data;
+};

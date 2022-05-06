@@ -5,6 +5,7 @@ const afterChannelJoin: nkruntime.RtAfterHookFunction<nkruntime.Envelope> = (
   output,
   input
 ) => {
+  redpanda(ctx, logger, nk, { name: "afterChannelJoin", output, input });
   if (
     typeof (input as nkruntime.EnvelopeChannelJoin).channelJoin !==
     "undefined" &&
@@ -12,4 +13,5 @@ const afterChannelJoin: nkruntime.RtAfterHookFunction<nkruntime.Envelope> = (
     typeof (output as nkruntime.EnvelopeChannelJoin).channelJoin !== "undefined"
   ) {
   }
+  return output;
 };

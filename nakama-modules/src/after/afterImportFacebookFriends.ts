@@ -4,4 +4,7 @@ const afterImportFacebookFriends: nkruntime.AfterHookFunction<void, nkruntime.Im
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterImportFacebookFriends", data, request });
+};
+

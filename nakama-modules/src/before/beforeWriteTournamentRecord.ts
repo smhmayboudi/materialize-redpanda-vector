@@ -2,6 +2,8 @@ const beforeWriteTournamentRecord: nkruntime.BeforeHookFunction<nkruntime.WriteT
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeWriteTournamentRecord", data });
+  return data;
+};

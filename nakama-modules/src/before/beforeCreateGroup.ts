@@ -2,6 +2,8 @@ const beforeCreateGroup: nkruntime.BeforeHookFunction<nkruntime.CreateGroupReque
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeCreateGroup", data });
+  return data;
+};

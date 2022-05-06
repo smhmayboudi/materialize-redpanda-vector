@@ -4,4 +4,7 @@ const afterListTournamentRecordsAroundOwner: nkruntime.AfterHookFunction<nkrunti
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterListTournamentRecordsAroundOwner", data, request });
+};
+

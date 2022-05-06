@@ -2,6 +2,8 @@ const beforeReadStorageObjects: nkruntime.BeforeHookFunction<nkruntime.ReadStora
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeReadStorageObjects", data });
+  return data;
+};

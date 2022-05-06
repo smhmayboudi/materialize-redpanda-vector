@@ -2,6 +2,8 @@ const beforeDeleteStorageObjects: nkruntime.BeforeHookFunction<nkruntime.DeleteS
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeDeleteStorageObjects", data });
+  return data;
+};

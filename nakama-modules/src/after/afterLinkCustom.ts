@@ -4,4 +4,7 @@ const afterLinkCustom: nkruntime.AfterHookFunction<void, nkruntime.AccountCustom
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterLinkCustom", data, request });
+};
+

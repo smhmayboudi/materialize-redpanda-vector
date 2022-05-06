@@ -4,4 +4,7 @@ const afterUnlinkFacebookInstantGame: nkruntime.AfterHookFunction<void, nkruntim
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterUnlinkFacebookInstantGame", data, request });
+};
+

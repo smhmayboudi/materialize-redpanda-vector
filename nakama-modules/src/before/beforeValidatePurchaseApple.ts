@@ -2,6 +2,8 @@ const beforeValidatePurchaseApple: nkruntime.BeforeHookFunction<nkruntime.Valida
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeValidatePurchaseApple", data });
+  return data;
+};

@@ -1,7 +1,9 @@
-const beforeLinkGoogle: nkruntime.BeforeHookFunction<nkruntime.LinkGoogleRequest> = (
+const beforeLinkGoogle: nkruntime.BeforeHookFunction<nkruntime.AccountGoogle> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeLinkGoogle", data });
+  return data;
+};

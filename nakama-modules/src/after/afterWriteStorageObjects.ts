@@ -4,4 +4,7 @@ const afterWriteStorageObjects: nkruntime.AfterHookFunction<nkruntime.StorageObj
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterWriteStorageObjects", data, request });
+};
+

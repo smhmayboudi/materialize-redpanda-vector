@@ -4,4 +4,7 @@ const afterListFriends: nkruntime.AfterHookFunction<nkruntime.FriendList, nkrunt
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterListFriends", data, request });
+};
+

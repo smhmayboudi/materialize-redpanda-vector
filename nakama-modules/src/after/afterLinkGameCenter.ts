@@ -4,4 +4,7 @@ const afterLinkGameCenter: nkruntime.AfterHookFunction<void, nkruntime.AccountGa
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterLinkGameCenter", data, request });
+};
+

@@ -4,4 +4,7 @@ const afterListMatches: nkruntime.AfterHookFunction<nkruntime.MatchList, nkrunti
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterListMatches", data, request });
+};
+

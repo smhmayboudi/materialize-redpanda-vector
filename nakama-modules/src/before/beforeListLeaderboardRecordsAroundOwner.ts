@@ -2,6 +2,8 @@ const beforeListLeaderboardRecordsAroundOwner: nkruntime.BeforeHookFunction<nkru
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListLeaderboardRecordsAroundOwner", data });
+  return data;
+};

@@ -4,4 +4,7 @@ const afterWriteLeaderboardRecord: nkruntime.AfterHookFunction<nkruntime.Leaderb
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterWriteLeaderboardRecord", data, request });
+};
+

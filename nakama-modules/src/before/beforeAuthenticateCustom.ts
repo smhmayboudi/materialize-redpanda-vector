@@ -2,6 +2,8 @@ const beforeAuthenticateCustom: nkruntime.BeforeHookFunction<nkruntime.Authentic
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeAuthenticateCustom", data });
+  return data;
+};

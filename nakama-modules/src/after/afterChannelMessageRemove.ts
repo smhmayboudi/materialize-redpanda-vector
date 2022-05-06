@@ -1,6 +1,7 @@
 const afterChannelMessageRemove: nkruntime.RtAfterHookFunction<
   nkruntime.Envelope
 > = (ctx, logger, nk, output, input) => {
+  redpanda(ctx, logger, nk, { name: "afterChannelMessageRemove", output, input });
   if (
     typeof (input as nkruntime.EnvelopeChannelMessageRemove)
       .channelMessageRemove !== "undefined" &&
@@ -9,4 +10,5 @@ const afterChannelMessageRemove: nkruntime.RtAfterHookFunction<
       .channelMessageRemove !== "undefined"
   ) {
   }
+  return output;
 };

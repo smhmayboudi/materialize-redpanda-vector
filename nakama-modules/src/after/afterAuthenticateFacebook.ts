@@ -4,4 +4,6 @@ const afterAuthenticateFacebook: nkruntime.AfterHookFunction<nkruntime.Session, 
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterAuthenticateFacebook", data, request });
+};

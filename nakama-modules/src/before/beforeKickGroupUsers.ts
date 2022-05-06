@@ -2,6 +2,8 @@ const beforeKickGroupUsers: nkruntime.BeforeHookFunction<nkruntime.KickGroupUser
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeKickGroupUsers", data });
+  return data;
+};

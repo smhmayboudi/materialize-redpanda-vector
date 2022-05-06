@@ -4,4 +4,7 @@ const afterListLeaderboardRecordsAroundOwner: nkruntime.AfterHookFunction<nkrunt
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterListLeaderboardRecordsAroundOwner", data, request });
+};
+

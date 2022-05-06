@@ -4,4 +4,7 @@ const afterUnlinkDevice: nkruntime.AfterHookFunction<void, nkruntime.AccountDevi
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterUnlinkDevice", data, request });
+};
+

@@ -4,4 +4,7 @@ const afterUnlinkSteam: nkruntime.AfterHookFunction<void, nkruntime.AccountSteam
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterUnlinkSteam", data, request });
+};
+

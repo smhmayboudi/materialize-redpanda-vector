@@ -2,6 +2,8 @@ const beforeLinkFacebook: nkruntime.BeforeHookFunction<nkruntime.LinkFacebookReq
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeLinkFacebook", data });
+  return data;
+};

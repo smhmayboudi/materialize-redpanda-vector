@@ -4,9 +4,11 @@ const beforeMatchCreate: nkruntime.RtBeforeHookFunction<nkruntime.Envelope> = (
   nk,
   envlope
 ) => {
+  // redpanda(ctx, logger, nk, { name: "beforeMatchCreate", envlope });
   if (
     typeof (envlope as nkruntime.EnvelopeMatchCreateMessage).matchCreate !==
     "undefined"
   ) {
   }
+  return envlope;
 };

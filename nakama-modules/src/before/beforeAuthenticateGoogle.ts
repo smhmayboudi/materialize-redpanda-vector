@@ -2,6 +2,8 @@ const beforeAuthenticateGoogle: nkruntime.BeforeHookFunction<nkruntime.Authentic
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeAuthenticateGoogle", data });
+  return data;
+};

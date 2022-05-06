@@ -4,4 +4,6 @@ const afterAuthenticateFacebookInstantGame: nkruntime.AfterHookFunction<nkruntim
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterAuthenticateFacebookInstantGame", data, request });
+};

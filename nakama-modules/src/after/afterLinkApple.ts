@@ -4,4 +4,7 @@ const afterLinkApple: nkruntime.AfterHookFunction<void, nkruntime.AccountApple> 
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterLinkApple", data, request });
+};
+

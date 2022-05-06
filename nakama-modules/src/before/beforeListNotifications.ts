@@ -2,6 +2,8 @@ const beforeListNotifications: nkruntime.BeforeHookFunction<nkruntime.ListNotifi
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListNotifications", data });
+  return data;
+};

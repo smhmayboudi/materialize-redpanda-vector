@@ -1,7 +1,9 @@
-const beforeGetAccount: nkruntime.BeforeHookFunction<nkruntime.GetAccountRequest> = (
+const beforeGetAccount: nkruntime.BeforeHookFunction<void> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeGetAccount", data });
+  return data;
+};

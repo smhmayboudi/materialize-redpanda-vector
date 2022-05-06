@@ -2,6 +2,8 @@ const beforeBanGroupUsers: nkruntime.BeforeHookFunction<nkruntime.BanGroupUsersR
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeBanGroupUsers", data });
+  return data;
+};

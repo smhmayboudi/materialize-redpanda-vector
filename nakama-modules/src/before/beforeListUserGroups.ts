@@ -2,6 +2,8 @@ const beforeListUserGroups: nkruntime.BeforeHookFunction<nkruntime.ListUserGroup
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListUserGroups", data });
+  return data;
+};

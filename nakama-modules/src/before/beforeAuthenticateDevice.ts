@@ -2,6 +2,8 @@ const beforeAuthenticateDevice: nkruntime.BeforeHookFunction<nkruntime.Authentic
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeAuthenticateDevice", data });
+  return data;
+};

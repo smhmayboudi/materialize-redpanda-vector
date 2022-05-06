@@ -4,4 +4,7 @@ const afterListTournaments: nkruntime.AfterHookFunction<nkruntime.TournamentList
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterListTournaments", data, request });
+};
+

@@ -1,7 +1,9 @@
-const beforeLinkDevice: nkruntime.BeforeHookFunction<nkruntime.LinkDeviceRequest> = (
+const beforeLinkDevice: nkruntime.BeforeHookFunction<nkruntime.AccountDevice> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeLinkDevice", data });
+  return data;
+};

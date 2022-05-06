@@ -2,6 +2,8 @@ const beforeListStorageObjects: nkruntime.BeforeHookFunction<nkruntime.ListStora
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListStorageObjects", data });
+  return data;
+};

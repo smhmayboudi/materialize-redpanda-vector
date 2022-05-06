@@ -4,4 +4,7 @@ const afterUnlinkGoogle: nkruntime.AfterHookFunction<void, nkruntime.AccountGoog
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterUnlinkGoogle", data, request });
+};
+

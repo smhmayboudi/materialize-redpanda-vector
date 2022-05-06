@@ -4,4 +4,7 @@ const afterUpdateGroup: nkruntime.AfterHookFunction<void, nkruntime.UpdateGroupR
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterUpdateGroup", data, request });
+};
+

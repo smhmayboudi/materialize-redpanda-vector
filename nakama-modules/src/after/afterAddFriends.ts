@@ -4,4 +4,6 @@ const afterAddFriends: nkruntime.AfterHookFunction<void, nkruntime.AddFriendsReq
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterAddFriends", data, request });
+};

@@ -2,6 +2,8 @@ const beforeDeleteLeaderboardRecord: nkruntime.BeforeHookFunction<nkruntime.Dele
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeDeleteLeaderboardRecord", data });
+  return data;
+};

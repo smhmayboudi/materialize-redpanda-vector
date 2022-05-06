@@ -4,4 +4,7 @@ const afterUnlinkCustom: nkruntime.AfterHookFunction<void, nkruntime.AccountCust
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterUnlinkCustom", data, request });
+};
+

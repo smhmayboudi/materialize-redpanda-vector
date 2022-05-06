@@ -4,4 +4,6 @@ const afterAuthenticateGameCenter: nkruntime.AfterHookFunction<nkruntime.Session
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterAuthenticateGameCenter", data, request });
+};

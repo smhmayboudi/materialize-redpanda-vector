@@ -2,6 +2,8 @@ const beforeListFriends: nkruntime.BeforeHookFunction<nkruntime.ListFriendsReque
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListFriends", data });
+  return data;
+};

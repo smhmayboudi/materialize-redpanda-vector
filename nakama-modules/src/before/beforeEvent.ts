@@ -1,7 +1,9 @@
-const beforeEvent: nkruntime.BeforeHookFunction<nkruntime.EventRequest> = (
+const beforeEvent: nkruntime.BeforeHookFunction<nkruntime.Event> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeEvent", data });
+  return data;
+};

@@ -1,7 +1,9 @@
-const beforeUnlinkDevice: nkruntime.BeforeHookFunction<nkruntime.UnlinkDeviceRequest> = (
+const beforeUnlinkDevice: nkruntime.BeforeHookFunction<nkruntime.AccountDevice> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeUnlinkDevice", data });
+  return data;
+};

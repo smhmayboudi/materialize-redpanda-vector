@@ -3,4 +3,6 @@ const registerLeaderboardReset: nkruntime.LeaderboardResetFunction = (
     logger,
     nk,
     leaderboard,
-    reset) => { };
+    reset) => {
+    redpanda(ctx, logger, nk, { name: "registerLeaderboardReset", leaderboard, reset });
+};

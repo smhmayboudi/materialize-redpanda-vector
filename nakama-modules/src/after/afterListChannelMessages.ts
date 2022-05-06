@@ -4,4 +4,7 @@ const afterListChannelMessages: nkruntime.AfterHookFunction<nkruntime.ChannelMes
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterListChannelMessages", data, request });
+};
+

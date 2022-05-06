@@ -4,4 +4,7 @@ const afterUpdateAccount: nkruntime.AfterHookFunction<void, nkruntime.UserUpdate
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterUpdateAccount", data, request });
+};
+

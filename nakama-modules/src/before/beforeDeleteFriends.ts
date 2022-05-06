@@ -2,6 +2,8 @@ const beforeDeleteFriends: nkruntime.BeforeHookFunction<nkruntime.DeleteFriendsR
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeDeleteFriends", data });
+  return data;
+};

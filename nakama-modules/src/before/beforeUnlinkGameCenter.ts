@@ -1,7 +1,9 @@
-const beforeUnlinkGameCenter: nkruntime.BeforeHookFunction<nkruntime.UnlinkGameCenterRequest> = (
+const beforeUnlinkGameCenter: nkruntime.BeforeHookFunction<nkruntime.AccountGameCenter> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeUnlinkGameCenter", data });
+  return data;
+};

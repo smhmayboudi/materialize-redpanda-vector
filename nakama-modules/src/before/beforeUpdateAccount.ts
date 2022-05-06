@@ -1,7 +1,9 @@
-const beforeUpdateAccount: nkruntime.BeforeHookFunction<nkruntime.UpdateAccountRequest> = (
+const beforeUpdateAccount: nkruntime.BeforeHookFunction<nkruntime.UserUpdateAccount> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeUpdateAccount", data });
+  return data;
+};

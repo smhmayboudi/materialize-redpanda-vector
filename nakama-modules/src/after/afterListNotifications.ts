@@ -4,4 +4,7 @@ const afterListNotifications: nkruntime.AfterHookFunction<nkruntime.Notification
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterListNotifications", data, request });
+};
+

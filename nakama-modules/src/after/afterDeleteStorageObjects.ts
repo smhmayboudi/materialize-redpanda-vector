@@ -4,4 +4,7 @@ const afterDeleteStorageObjects: nkruntime.AfterHookFunction<void, nkruntime.Del
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterDeleteStorageObjects", data, request });
+};
+

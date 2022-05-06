@@ -1,6 +1,7 @@
 const afterMatchmakerRemove: nkruntime.RtAfterHookFunction<
   nkruntime.Envelope
 > = (ctx, logger, nk, output, input) => {
+  redpanda(ctx, logger, nk, { name: "afterMatchmakerRemove", output, input });
   if (
     typeof (input as nkruntime.EnvelopeMatchmakerRemove).matchmakerRemove !==
     "undefined" &&
@@ -9,4 +10,5 @@ const afterMatchmakerRemove: nkruntime.RtAfterHookFunction<
     "undefined"
   ) {
   }
+  return output;
 };

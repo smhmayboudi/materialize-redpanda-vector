@@ -2,6 +2,8 @@ const beforeUpdateGroup: nkruntime.BeforeHookFunction<nkruntime.UpdateGroupReque
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeUpdateGroup", data });
+  return data;
+};

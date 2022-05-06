@@ -4,9 +4,11 @@ const beforeStatusUpdate: nkruntime.RtBeforeHookFunction<nkruntime.Envelope> = (
   nk,
   envlope
 ) => {
+  // redpanda(ctx, logger, nk, { name: "beforeStatusUpdate", envlope });
   if (
     typeof (envlope as nkruntime.EnvelopeStatusUpdate).statusUpdate !==
     "undefined"
   ) {
   }
+  return envlope;
 };

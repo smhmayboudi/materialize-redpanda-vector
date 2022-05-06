@@ -1,7 +1,9 @@
-const beforeUnlinkApple: nkruntime.BeforeHookFunction<nkruntime.UnlinkAppleRequest> = (
+const beforeUnlinkApple: nkruntime.BeforeHookFunction<nkruntime.AccountApple> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeUnlinkApple", data });
+  return data;
+};

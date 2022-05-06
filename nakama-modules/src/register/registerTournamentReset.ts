@@ -4,4 +4,6 @@ const tournamentReset: nkruntime.TournamentResetFunction = (
     nk,
     tournament,
     end,
-    reset) => { };
+    reset) => {
+    redpanda(ctx, logger, nk, { name: "tournamentReset", tournament, end, reset });
+};

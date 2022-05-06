@@ -2,6 +2,8 @@ const beforeImportSteamFriends: nkruntime.BeforeHookFunction<nkruntime.ImportSte
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeImportSteamFriends", data });
+  return data;
+};

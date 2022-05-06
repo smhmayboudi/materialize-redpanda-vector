@@ -4,4 +4,6 @@ const afterBanGroupUsers: nkruntime.AfterHookFunction<void, nkruntime.BanGroupUs
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterBanGroupUsers", data, request });
+};

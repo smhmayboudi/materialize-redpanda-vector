@@ -4,4 +4,6 @@ const afterDeleteGroup: nkruntime.AfterHookFunction<void, nkruntime.DeleteGroupR
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterDeleteGroup", data, request });
+};

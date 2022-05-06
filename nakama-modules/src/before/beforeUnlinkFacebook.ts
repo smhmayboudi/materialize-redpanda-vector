@@ -1,7 +1,9 @@
-const beforeUnlinkFacebook: nkruntime.BeforeHookFunction<nkruntime.UnlinkFacebookRequest> = (
+const beforeUnlinkFacebook: nkruntime.BeforeHookFunction<nkruntime.AccountFacebookInstantGame> = (
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeUnlinkFacebook", data });
+  return data;
+};

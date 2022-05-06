@@ -2,6 +2,8 @@ const beforeBlockFriends: nkruntime.BeforeHookFunction<nkruntime.BlockFriendsReq
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeBlockFriends", data });
+  return data;
+};

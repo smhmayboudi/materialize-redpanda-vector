@@ -4,4 +4,7 @@ const afterGetUsers: nkruntime.AfterHookFunction<nkruntime.Users, nkruntime.GetU
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterGetUsers", data, request });
+};
+

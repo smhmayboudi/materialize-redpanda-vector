@@ -5,6 +5,7 @@ const afterStatusUpdate: nkruntime.RtAfterHookFunction<nkruntime.Envelope> = (
   output,
   input
 ) => {
+  redpanda(ctx, logger, nk, { name: "afterStatusUpdate", output, input });
   if (
     typeof (input as nkruntime.EnvelopeStatusUpdate).statusUpdate !==
     "undefined" &&
@@ -13,4 +14,5 @@ const afterStatusUpdate: nkruntime.RtAfterHookFunction<nkruntime.Envelope> = (
     "undefined"
   ) {
   }
+  return output;
 };

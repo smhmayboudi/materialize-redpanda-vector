@@ -4,4 +4,7 @@ const afterPromoteGroupUsers: nkruntime.AfterHookFunction<void, nkruntime.Promot
   nk,
   data,
   request
-) => { };
+) => {
+  redpanda(ctx, logger, nk, { name: "afterPromoteGroupUsers", data, request });
+};
+

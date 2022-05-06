@@ -2,6 +2,8 @@ const beforeListMatches: nkruntime.BeforeHookFunction<nkruntime.ListMatchesReque
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListMatches", data });
+  return data;
+};

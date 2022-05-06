@@ -2,6 +2,8 @@ const beforeListChannelMessages: nkruntime.BeforeHookFunction<nkruntime.ListChan
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeListChannelMessages", data });
+  return data;
+};

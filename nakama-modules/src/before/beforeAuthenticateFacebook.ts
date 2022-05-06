@@ -2,6 +2,8 @@ const beforeAuthenticateFacebook: nkruntime.BeforeHookFunction<nkruntime.Authent
   ctx,
   logger,
   nk,
-  data,
-  request
-) => { };
+  data
+) => {
+  // redpanda(ctx, logger, nk, { name: "beforeAuthenticateFacebook", data });
+  return data;
+};
