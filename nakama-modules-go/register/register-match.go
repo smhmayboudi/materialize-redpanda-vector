@@ -16,7 +16,7 @@ type MatchState struct {
 }
 
 func (m *Match) MatchInit(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, params map[string]interface{}) (interface{}, int, string) {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "matchInit", "params": params}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "MatchInit", "params": params}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return params, 0, ""
 	}
@@ -37,7 +37,7 @@ func (m *Match) MatchInit(ctx context.Context, logger runtime.Logger, db *sql.DB
 	return state, tickRate, label
 }
 func (m *Match) MatchJoinAttempt(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, dispatcher runtime.MatchDispatcher, tick int64, state interface{}, presence runtime.Presence, metadata map[string]string) (interface{}, bool, string) {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "matchJoinAttempt", "tick": tick, "state": state, "presence": presence, "metadata": metadata}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "MatchJoinAttempt", "tick": tick, "state": state, "presence": presence, "metadata": metadata}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return state, false, ""
 	}
@@ -47,7 +47,7 @@ func (m *Match) MatchJoinAttempt(ctx context.Context, logger runtime.Logger, db 
 	return state, true, ""
 }
 func (m *Match) MatchJoin(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, dispatcher runtime.MatchDispatcher, tick int64, state interface{}, presences []runtime.Presence) interface{} {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "matchJoin", "tick": tick, "state": state, "presences": presences}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "MatchJoin", "tick": tick, "state": state, "presences": presences}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return state
 	}
@@ -59,7 +59,7 @@ func (m *Match) MatchJoin(ctx context.Context, logger runtime.Logger, db *sql.DB
 	return state
 }
 func (m *Match) MatchLeave(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, dispatcher runtime.MatchDispatcher, tick int64, state interface{}, presences []runtime.Presence) interface{} {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "matchLeave", "tick": tick, "state": state, "presences": presences}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "MatchLeave", "tick": tick, "state": state, "presences": presences}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return state
 	}
@@ -71,7 +71,7 @@ func (m *Match) MatchLeave(ctx context.Context, logger runtime.Logger, db *sql.D
 	return state
 }
 func (m *Match) MatchLoop(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, dispatcher runtime.MatchDispatcher, tick int64, state interface{}, messages []runtime.MatchData) interface{} {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "matchLeave", "tick": tick, "state": state, "messages": messages}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "MatchLeave", "tick": tick, "state": state, "messages": messages}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return state
 	}
@@ -85,7 +85,7 @@ func (m *Match) MatchLoop(ctx context.Context, logger runtime.Logger, db *sql.DB
 	return state
 }
 func (m *Match) MatchTerminate(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, dispatcher runtime.MatchDispatcher, tick int64, state interface{}, graceSeconds int) interface{} {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "matchTerminate", "tick": tick, "state": state, "graceSeconds": graceSeconds}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "MatchTerminate", "tick": tick, "state": state, "graceSeconds": graceSeconds}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return state
 	}
@@ -96,7 +96,7 @@ func (m *Match) MatchTerminate(ctx context.Context, logger runtime.Logger, db *s
 	return state
 }
 func (m *Match) MatchSignal(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, dispatcher runtime.MatchDispatcher, tick int64, state interface{}, data string) (interface{}, string) {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "matchSignal", "tick": tick, "state": state, "data": data}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "MatchSignal", "tick": tick, "state": state, "data": data}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return state, data
 	}

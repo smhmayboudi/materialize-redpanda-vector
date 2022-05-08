@@ -7,6 +7,9 @@ import (
 	"net/http"
 
 	"github.com/heroiclabs/nakama-common/runtime"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 type NakamaContext struct {
@@ -49,6 +52,23 @@ type Records struct {
 }
 
 func Redpanda(ctx context.Context, logger runtime.Logger, payload map[string]interface{}) error {
+	shutdown := initProvider(ctx, logger)
+	defer shutdown()
+
+	tracer := otel.Tracer("nakama-modules-go")
+
+	commonAttrs := []attribute.KeyValue{
+		attribute.String("key-1", "value-1"),
+		attribute.String("key-2", "value-2"),
+		attribute.String("key-3", "value-3"),
+	}
+
+	ctx, span := tracer.Start(
+		context.Background(),
+		"Redpanda",
+		trace.WithAttributes(commonAttrs...))
+	defer span.End()
+
 	env, ok := ctx.Value(runtime.RUNTIME_CTX_ENV).(map[string]string)
 	if !ok {
 		env = map[string]string{}

@@ -9,7 +9,7 @@ import (
 )
 
 func RegisterEvent(ctx context.Context, logger runtime.Logger, evt *api.Event) {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "registerEvent", "event": evt}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterEvent", "event": evt}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 	}
 }

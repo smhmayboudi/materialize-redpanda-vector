@@ -1,4 +1,5 @@
 # https://heroiclabs.com/docs/nakama/getting-started/install/docker/
+
 services:
 
   cockroach:
@@ -20,6 +21,8 @@ services:
       test: curl -f http://cockroach:8080/health
       timeout: 5s
     image: cockroachdb/cockroach:v21.2.10
+    labels:
+      namespace: cockroach
     ports:
       - 8080:8080
       - 26257:26257
@@ -27,11 +30,103 @@ services:
     volumes:
       - cockroach:/var/lib/cockroach
 
+  jaeger:
+    container_name: jaeger
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    expose:
+      - 5775/udp # accept zipkin.thrift over compact thrift protocol (deprecated, used by legacy clients only)
+      - 6831/udp # accept jaeger.thrift over compact thrift protocol
+      - 6832/udp # accept jaeger.thrift over binary thrift protocol
+      - 5778 # serve configs
+      - 16686 # serve frontend
+      - 14268 # accept jaeger.thrift directly from clients
+      - 14269 # admin port: health check at / and metrics at /metrics
+      - 14250 # accept model.proto
+      - 9411 # Zipkin compatible endpoint (optional)
+    # healthcheck:
+    #   interval: 10s
+    #   retries: 5
+    #   start_period: 5s
+    #   test: curl -f http://jaeger:14269/metrics
+    #   timeout: 5s
+    image: jaegertracing/all-in-one:1.33.0
+    labels:
+      namespace: jaeger
+    ports:
+      - 5775:5775/udp
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 5778:5778
+      - 16686:16686
+      - 14250:14250
+      - 14268:14268
+      - 14269:14269
+      - 9411:9411
+    restart: "no"
+
+  # materialize-cli:
+  #   entrypoint:
+  #     - "/bin/sh"
+  #     - "-ecx"
+  #     - >
+  #       exec /usr/bin/psql --file=/materialize-cli.sql postgres://materialize@materialized:6875/materialize
+  #   command:
+  #     - --host=materialize
+  #     - --no-password
+  #     - --port=6875 materialize
+  #     - --username=materialize
+  #   container_name: materialize-cli
+  #   depends_on:
+  #     materialized:
+  #       condition: service_healthy
+  #   image: materialize/cli:v0.26.0
+  #   labels:
+  #     namespace: materialize-cli
+  #   restart: "no"
+  #   volumes:
+  #     - ./materialize-cli.sql:/materialize-cli.sql
+
+  # # https://materialize.com/docs/cli/
+  # materialized:
+  #   command:
+  #     - --data-directory=/data
+  #     - --disable-telemetry
+  #     - --introspection-frequency=1s
+  #     - --listen-addr=0.0.0.0:6875
+  #     - --log-filter=info
+  #     - --logical-compaction-window=1s
+  #     - --metrics-scraping-interval=30s
+  #     - --workers=1
+  #   container_name: materialized
+  #   depends_on:
+  #     redpanda:
+  #       condition: service_healthy
+  #   expose:
+  #     - 6875
+  #   healthcheck:
+  #     interval: 10s
+  #     retries: 5
+  #     start_period: 5s
+  #     test: curl -f http://materialized:6875
+  #     timeout: 5s
+  #   image: materialize/materialized:v0.26.0
+  #   labels:
+  #     namespace: materialized
+  #   ports:
+  #     - 6875:6875
+  #   restart: "no"
+  #   volumes:
+  #     # - ./materialized.yaml:/etc/materialized/config.yaml:ro
+  #     - materialized:/mzdata
+
   nakama:
     container_name: nakama
     depends_on:
       cockroach:
         condition: service_healthy
+      # jaeger:
+      #   condition: service_healthy
       redpanda:
         condition: service_healthy
     entrypoint:
@@ -53,6 +148,8 @@ services:
       test: curl -f http://nakama:7350
       timeout: 5s
     image: heroiclabs/nakama:3.11.0
+    labels:
+      namespace: nakama
     ports:
       - 7348:7348 # gRPC API embedded developer
       - 7349:7349 # gRPC API
@@ -65,59 +162,7 @@ services:
       - ./nakama.yaml:/etc/nakama/config.yaml:ro
       - nakama:/nakama/data
 
-  # EXCUTE SQLS TO SETUP
-#   materialize-cli:
-#     entrypoint:
-#       - "/bin/sh"
-#       - "-ecx"
-#       - >
-#         exec /usr/bin/psql --file=/materialize-cli.sql postgres://materialize@materialized:6875/materialize
-#     command:
-#       - --host=materialize
-#       - --no-password
-#       - --port=6875 materialize
-#       - --username=materialize
-#     container_name: materialize-cli
-#     depends_on:
-#       materialized:
-#         condition: service_healthy
-#     image: materialize/cli:v0.26.0
-#     restart: "no"
-#     volumes:
-#       - ./materialize-cli.sql:/materialize-cli.sql
-
-# # https://materialize.com/docs/cli/
-#   materialized:
-#     command:
-#       - --data-directory=/data
-#       - --disable-telemetry
-#       - --introspection-frequency=1s
-#       - --listen-addr=0.0.0.0:6875
-#       - --log-filter=info
-#       - --logical-compaction-window=1s
-#       - --metrics-scraping-interval=30s
-#       - --workers=1
-#     container_name: materialized
-#     depends_on:
-#       redpanda:
-#         condition: service_healthy
-#     expose:
-#       - 6875
-#     healthcheck:
-#       interval: 10s
-#       retries: 5
-#       start_period: 5s
-#       test: curl -f http://materialized:6875
-#       timeout: 5s
-#     image: materialize/materialized:v0.26.0
-#     ports:
-#       - 6875:6875
-#     restart: "no"
-#     volumes:
-#       # - ./materialized.yaml:/etc/materialized/config.yaml:ro
-#       - materialized:/mzdata
-
-# https://docs.redpanda.com/docs/cluster-administration/configuration/
+  # https://docs.redpanda.com/docs/cluster-administration/configuration/
   redpanda:
     command:
       - redpanda
@@ -150,6 +195,8 @@ services:
       test: curl -f http://redpanda:8081/schemas/types
       timeout: 5s
     image: vectorized/redpanda:v21.11.15
+    labels:
+      namespace: redpanda
     ports:
       - 8081:8081 # schema registry api
       - 8082:8082 # panda proxy api
@@ -161,40 +208,38 @@ services:
       # - ./redpanda.yaml:/etc/redpanda/config.yaml:ro
       - redpanda:/var/lib/redpanda/data
 
-# # https://docs.redpanda.com/docs/cluster-administration/configuration/
-#   vector:
-#     command:
-#       - --color=never
-#       - --config=/etc/vector/config.yaml
-#       - --log-format=json
-#       - --require-healthy=true
-#     container_name: vector
-#     depends_on:
-#       redpanda:
-#         condition: service_healthy
-#       materialize-cli:
-#         condition: service_completed_successfully
-#       materialized:
-#         condition: service_healthy
-#     expose:
-#       - 8686
-#     healthcheck:
-#       interval: 10s
-#       retries: 5
-#       start_period: 5s
-#       test: curl -f http://vector:8686/health
-#       timeout: 5s
-#     image: timberio/vector:0.21.1-debian
-#     ports:
-#       - 8686:8686
-#     restart: "no"
-#     volumes:
-#       - ./vector.yaml:/etc/vector/config.yaml:ro
-#       - vector:/var/lib/vector
+  # # https://docs.redpanda.com/docs/cluster-administration/configuration/
+  # vector:
+  #   command:
+  #     - --color=never
+  #     - --config=/etc/vector/config.yaml
+  #     - --log-format=json
+  #     - --require-healthy=true
+  #   container_name: vector
+  #   depends_on:
+  #     redpanda:
+  #       condition: service_healthy
+  #   expose:
+  #     - 8686
+  #   healthcheck:
+  #     interval: 10s
+  #     retries: 5
+  #     start_period: 5s
+  #     test: curl -f http://vector:8686/health
+  #     timeout: 5s
+  #   image: timberio/vector:0.21.1-debian
+  #   labels:
+  #     namespace: vector
+  #   ports:
+  #     - 8686:8686
+  #   restart: "no"
+  #   volumes:
+  #     - ./vector.yaml:/etc/vector/config.yaml:ro
+  #     - vector:/var/lib/vector
 
 volumes:
   cockroach:
-  nakama:
   # materialized:
+  nakama:
   redpanda:
   # vector:

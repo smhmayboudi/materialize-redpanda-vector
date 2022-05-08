@@ -24,7 +24,7 @@ sinks:
     # message_timeout_ms: 300000
     # sasl: null
     # socket_timeout_ms: 60000
-    topic: chat-room-sink-vector
+    topic: chat-room-vector
     type: kafka
 sources:
   kafka_in:
@@ -56,7 +56,7 @@ sources:
     # socket_timeout_ms: 60000
     # topic_key: topic
     topics:
-      - chat-room-sink
+      - chat-room
     type: kafka
 transforms:
   json_parse:

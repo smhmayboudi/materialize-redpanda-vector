@@ -9,7 +9,7 @@ import (
 )
 
 func RegisterMatchmakerMatched(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, entries []runtime.MatchmakerEntry) (string, error) {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "registerEvent", "entries": entries}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatchmakerMatched", "entries": entries}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return "", err
 	}

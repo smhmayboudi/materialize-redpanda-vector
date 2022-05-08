@@ -10,7 +10,7 @@ import (
 )
 
 func RegisterTournamentEnd(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, tournament *api.Tournament, end, reset int64) error {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "registerTournamentEnd", "tournament": tournament, "end": end, "reset": reset}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterTournamentEnd", "tournament": tournament, "end": end, "reset": reset}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 		return err
 	}

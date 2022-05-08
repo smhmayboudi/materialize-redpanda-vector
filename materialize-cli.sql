@@ -21,12 +21,12 @@ FROM (
  );
  */
 CREATE SINK chat_room_sink
-FROM chat_room_view INTO KAFKA BROKER 'redpanda:29092' TOPIC 'chat-room-sink' CONSISTENCY (
-    TOPIC 'chat-room-sink-consistency' FORMAT AVRO USING CONFLUENT SCHEMA REGISTRY 'http://redpanda:8081'
+FROM chat_room_view INTO KAFKA BROKER 'redpanda:29092' TOPIC 'chat-room-materialized' CONSISTENCY (
+    TOPIC 'chat-room-materialized-consistency' FORMAT AVRO USING CONFLUENT SCHEMA REGISTRY 'http://redpanda:8081'
   ) WITH (reuse_topic = true) FORMAT JSON;
 /*
  CREATE SINK "materialize"."public"."chat_room_sink" IN CLUSTER [1]
- FROM [u2 AS "materialize"."public"."chat_room_view"] INTO KAFKA BROKER 'redpanda:29092' TOPIC 'chat-room-sink' CONSISTENCY (
- TOPIC 'chat-room-sink-consistency' FORMAT AVRO USING CONFLUENT SCHEMA REGISTRY 'http://redpanda:8081'
+ FROM [u2 AS "materialize"."public"."chat_room_view"] INTO KAFKA BROKER 'redpanda:29092' TOPIC 'chat-room-materialized' CONSISTENCY (
+ TOPIC 'chat-room-materialized-consistency' FORMAT AVRO USING CONFLUENT SCHEMA REGISTRY 'http://redpanda:8081'
  ) WITH ("reuse_topic" = true) FORMAT JSON WITH SNAPSHOT;
  */

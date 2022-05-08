@@ -9,7 +9,7 @@ import (
 )
 
 func RegisterEventSessionStart(ctx context.Context, logger runtime.Logger, evt *api.Event) {
-	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "registerEventSessionStart", "event": evt}); err != nil {
+	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterEventSessionStart", "event": evt}); err != nil {
 		logger.Error("Error calling redpanda: %v", err)
 	}
 	logger.Info("session start %v %v", ctx, evt)
