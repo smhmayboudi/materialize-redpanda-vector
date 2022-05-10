@@ -8,52 +8,75 @@ import (
 	"github.com/heroiclabs/nakama-common/runtime"
 
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/exporters/jaeger"
-	"go.opentelemetry.io/otel/propagation"
+	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
 	"go.opentelemetry.io/otel/sdk/resource"
 	sdkTrace "go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.10.0"
 )
 
-func initProvider(ctx context.Context, logger runtime.Logger) func() {
-	// ctx := context.Background()
-	r, err := resource.Merge(
+const (
+	serviceName    = "nakama-modules-go"
+	serviceVersion = "v0.1.0"
+	url            = "http://jaeger:14268/api/traces"
+)
+
+func InitProvider(ctx context.Context, logger runtime.Logger) func() {
+	// b3 := b3.New(b3.WithInjectEncoding(b3.B3SingleHeader))
+	// otel.SetTextMapPropagator(b3)
+
+	rna := resource.NewWithAttributes(
+		semconv.SchemaURL,
+		semconv.ServiceNameKey.String(serviceName),
+		semconv.ServiceVersionKey.String(serviceVersion),
+	)
+	rm, err := resource.Merge(
 		resource.Default(),
-		resource.NewWithAttributes(
-			semconv.SchemaURL,
-			attribute.String("environment", "development"),
-			semconv.ServiceNameKey.String("nakama-modules-go"),
-			semconv.ServiceVersionKey.String("v0.1.0"),
-		),
+		rna,
 	)
 	if err != nil {
 		logger.Error("Failed to create resource: %v", err)
 	}
-	traceExporter, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint("http://localhost:14268/api/traces")))
-	if err != nil {
-		logger.Error("Failed to create trace exporter: %v", err)
-	}
-	bsp := sdkTrace.NewBatchSpanProcessor(traceExporter)
-	tracerProvider := sdkTrace.NewTracerProvider(
-		sdkTrace.WithSampler(sdkTrace.AlwaysSample()),
-		sdkTrace.WithResource(r),
-		sdkTrace.WithSpanProcessor(bsp),
+	rn, err := resource.New(
+		ctx,
+		// resource.WithAttributes(),
+		resource.WithContainer(),
+		// resource.WithDetectors(thirdparty.Detector{}),
+		resource.WithFromEnv(),
+		resource.WithOS(),
+		resource.WithProcess(),
 	)
-	otel.SetTracerProvider(tracerProvider)
-	otel.SetTextMapPropagator(propagation.TraceContext{})
+	r, err := resource.Merge(
+		rm,
+		rn,
+	)
+	if err != nil {
+		logger.Error("Failed to create resource: %v", err)
+	}
+	ej, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(url)))
+	if err != nil {
+		logger.Error("Failed to create jaeger exporter: %v", err)
+	}
+	es, err := stdouttrace.New(stdouttrace.WithPrettyPrint())
+	if err != nil {
+		logger.Error("Failed to create stdouttrace exporter: %v", err)
+	}
+	tp := sdkTrace.NewTracerProvider(
+		sdkTrace.WithBatcher(ej),
+		sdkTrace.WithBatcher(es),
+		sdkTrace.WithResource(r),
+	)
+	otel.SetTracerProvider(tp)
+
 	return func() {
 		ctx, cancel := context.WithCancel(ctx)
 		defer cancel()
 		defer func(ctx context.Context) {
-			ctx, cancel = context.WithTimeout(ctx, 5*time.Second)
+			ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 			defer cancel()
-			if err := tracerProvider.Shutdown(ctx); err != nil {
+			if err := tp.Shutdown(ctx); err != nil {
 				logger.Error("Failed to shutdown tracer provider: %v", err)
 			}
 		}(ctx)
-		// if err != nil {
-		// 	logger.Error("Failed to shutdown tracer provider: %v", err)
-		// }
 	}
 }

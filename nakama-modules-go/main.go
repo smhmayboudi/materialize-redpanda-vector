@@ -8,532 +8,577 @@ import (
 	r "github.com/smhmayboudi/materialize-redpanda-vector/nakama-modules-go/register"
 	ra "github.com/smhmayboudi/materialize-redpanda-vector/nakama-modules-go/register/after"
 	rb "github.com/smhmayboudi/materialize-redpanda-vector/nakama-modules-go/register/before"
+	u "github.com/smhmayboudi/materialize-redpanda-vector/nakama-modules-go/util"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/trace"
 )
 
 func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, initializer runtime.Initializer) error {
-	if err := initializer.RegisterAfterAddFriends(ra.AddFriends); err != nil {
+	// ctx := otel.GetTextMapPropagator().Extract(ctx, propagation.HeaderCarrier(r.Header))
+
+	// bb := b3.New(b3.WithInjectEncoding(b3.B3SingleHeader))
+	// carrier := propagation.TextMapCarrier{}
+	// bb.Extract(ctx, carrier)
+	// bb.Inject(ctx, carrier)
+	// otel.SetTextMapPropagator(bb)
+
+	u.InitProvider(ctx, logger)
+	// shutdown := u.InitProvider(ctx, logger)
+	// defer shutdown()
+
+	// b, err := baggage.Parse("baggage_key=baggage_value")
+	// if err != nil {
+	// 	logger.Error("Failed to create baggage: %v", err)
+	// 	return err
+	// }
+	// bm, err := baggage.NewMember(string(attribute.Key("baggage_key")), "baggage_value")
+	// if err != nil {
+	// 	logger.Error("Failed to create baggage member: %v", err)
+	// 	return err
+	// }
+	// b, err := baggage.New(bm)
+	// if err != nil {
+	// 	logger.Error("Failed to create baggage: %v", err)
+	// 	return err
+	// }
+	// ctx := baggage.ContextWithBaggage(ctx, b)
+
+	// ctx = httptrace.WithClientTrace(ctx, otelhttptrace.NewClientTrace(ctx))
+
+	ctx, span := otel.Tracer(u.InstrumentationName).Start(
+		ctx,
+		"InitModule",
+		trace.WithSpanKind(trace.SpanKindInternal))
+	defer span.End()
+
+	// attributes := []attribute.KeyValue{
+	// 	attribute.String("attribute_key", "attribute_value"),
+	// }
+	// span.SetAttributes(attributes...)
+
+	if err := initializer.RegisterAfterAddFriends(ra.RegisterAfterAddFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAddGroupUsers(ra.AddGroupUsers); err != nil {
+	if err := initializer.RegisterAfterAddGroupUsers(ra.RegisterAfterAddGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateApple(ra.AuthenticateApple); err != nil {
+	if err := initializer.RegisterAfterAuthenticateApple(ra.RegisterAfterAuthenticateApple); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateCustom(ra.AuthenticateCustom); err != nil {
+	if err := initializer.RegisterAfterAuthenticateCustom(ra.RegisterAfterAuthenticateCustom); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateDevice(ra.AuthenticateDevice); err != nil {
+	if err := initializer.RegisterAfterAuthenticateDevice(ra.RegisterAfterAuthenticateDevice); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateEmail(ra.AuthenticateEmail); err != nil {
+	if err := initializer.RegisterAfterAuthenticateEmail(ra.RegisterAfterAuthenticateEmail); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateFacebook(ra.AuthenticateFacebook); err != nil {
+	if err := initializer.RegisterAfterAuthenticateFacebook(ra.RegisterAfterAuthenticateFacebook); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateFacebookInstantGame(ra.AuthenticateFacebookInstantGame); err != nil {
+	if err := initializer.RegisterAfterAuthenticateFacebookInstantGame(ra.RegisterAfterAuthenticateFacebookInstantGame); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateGameCenter(ra.AuthenticateGameCenter); err != nil {
+	if err := initializer.RegisterAfterAuthenticateGameCenter(ra.RegisterAfterAuthenticateGameCenter); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateGoogle(ra.AuthenticateGoogle); err != nil {
+	if err := initializer.RegisterAfterAuthenticateGoogle(ra.RegisterAfterAuthenticateGoogle); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterAuthenticateSteam(ra.AuthenticateSteam); err != nil {
+	if err := initializer.RegisterAfterAuthenticateSteam(ra.RegisterAfterAuthenticateSteam); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterBanGroupUsers(ra.BanGroupUsers); err != nil {
+	if err := initializer.RegisterAfterBanGroupUsers(ra.RegisterAfterBanGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterBlockFriends(ra.BlockFriends); err != nil {
+	if err := initializer.RegisterAfterBlockFriends(ra.RegisterAfterBlockFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterCreateGroup(ra.CreateGroup); err != nil {
+	if err := initializer.RegisterAfterCreateGroup(ra.RegisterAfterCreateGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterDeleteFriends(ra.DeleteFriends); err != nil {
+	if err := initializer.RegisterAfterDeleteFriends(ra.RegisterAfterDeleteFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterDeleteGroup(ra.DeleteGroup); err != nil {
+	if err := initializer.RegisterAfterDeleteGroup(ra.RegisterAfterDeleteGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterDeleteLeaderboardRecord(ra.DeleteLeaderboardRecord); err != nil {
+	if err := initializer.RegisterAfterDeleteLeaderboardRecord(ra.RegisterAfterDeleteLeaderboardRecord); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterDeleteNotification(ra.DeleteNotification); err != nil {
+	if err := initializer.RegisterAfterDeleteNotification(ra.RegisterAfterDeleteNotification); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterDeleteStorageObjects(ra.DeleteStorageObjects); err != nil {
+	if err := initializer.RegisterAfterDeleteStorageObjects(ra.RegisterAfterDeleteStorageObjects); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterDemoteGroupUsers(ra.DemoteGroupUsers); err != nil {
+	if err := initializer.RegisterAfterDemoteGroupUsers(ra.RegisterAfterDemoteGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterGetAccount(ra.GetAccount); err != nil {
+	if err := initializer.RegisterAfterGetAccount(ra.RegisterAfterGetAccount); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterGetUsers(ra.GetUsers); err != nil {
+	if err := initializer.RegisterAfterGetUsers(ra.RegisterAfterGetUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterImportFacebookFriends(ra.ImportFacebookFriends); err != nil {
+	if err := initializer.RegisterAfterImportFacebookFriends(ra.RegisterAfterImportFacebookFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterImportSteamFriends(ra.ImportSteamFriends); err != nil {
+	if err := initializer.RegisterAfterImportSteamFriends(ra.RegisterAfterImportSteamFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterJoinGroup(ra.JoinGroup); err != nil {
+	if err := initializer.RegisterAfterJoinGroup(ra.RegisterAfterJoinGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterJoinTournament(ra.JoinTournament); err != nil {
+	if err := initializer.RegisterAfterJoinTournament(ra.RegisterAfterJoinTournament); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterKickGroupUsers(ra.KickGroupUsers); err != nil {
+	if err := initializer.RegisterAfterKickGroupUsers(ra.RegisterAfterKickGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLeaveGroup(ra.LeaveGroup); err != nil {
+	if err := initializer.RegisterAfterLeaveGroup(ra.RegisterAfterLeaveGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkApple(ra.LinkApple); err != nil {
+	if err := initializer.RegisterAfterLinkApple(ra.RegisterAfterLinkApple); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkCustom(ra.LinkCustom); err != nil {
+	if err := initializer.RegisterAfterLinkCustom(ra.RegisterAfterLinkCustom); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkDevice(ra.LinkDevice); err != nil {
+	if err := initializer.RegisterAfterLinkDevice(ra.RegisterAfterLinkDevice); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkEmail(ra.LinkEmail); err != nil {
+	if err := initializer.RegisterAfterLinkEmail(ra.RegisterAfterLinkEmail); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkFacebook(ra.LinkFacebook); err != nil {
+	if err := initializer.RegisterAfterLinkFacebook(ra.RegisterAfterLinkFacebook); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkFacebookInstantGame(ra.LinkFacebookInstantGame); err != nil {
+	if err := initializer.RegisterAfterLinkFacebookInstantGame(ra.RegisterAfterLinkFacebookInstantGame); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkGameCenter(ra.LinkGameCenter); err != nil {
+	if err := initializer.RegisterAfterLinkGameCenter(ra.RegisterAfterLinkGameCenter); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkGoogle(ra.LinkGoogle); err != nil {
+	if err := initializer.RegisterAfterLinkGoogle(ra.RegisterAfterLinkGoogle); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterLinkSteam(ra.LinkSteam); err != nil {
+	if err := initializer.RegisterAfterLinkSteam(ra.RegisterAfterLinkSteam); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListChannelMessages(ra.ListChannelMessages); err != nil {
+	if err := initializer.RegisterAfterListChannelMessages(ra.RegisterAfterListChannelMessages); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListFriends(ra.ListFriends); err != nil {
+	if err := initializer.RegisterAfterListFriends(ra.RegisterAfterListFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListGroupUsers(ra.ListGroupUsers); err != nil {
+	if err := initializer.RegisterAfterListGroupUsers(ra.RegisterAfterListGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListGroups(ra.ListGroups); err != nil {
+	if err := initializer.RegisterAfterListGroups(ra.RegisterAfterListGroups); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListLeaderboardRecords(ra.ListLeaderboardRecords); err != nil {
+	if err := initializer.RegisterAfterListLeaderboardRecords(ra.RegisterAfterListLeaderboardRecords); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListLeaderboardRecordsAroundOwner(ra.ListLeaderboardRecordsAroundOwner); err != nil {
+	if err := initializer.RegisterAfterListLeaderboardRecordsAroundOwner(ra.RegisterAfterListLeaderboardRecordsAroundOwner); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListMatches(ra.ListMatches); err != nil {
+	if err := initializer.RegisterAfterListMatches(ra.RegisterAfterListMatches); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListNotifications(ra.ListNotifications); err != nil {
+	if err := initializer.RegisterAfterListNotifications(ra.RegisterAfterListNotifications); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListStorageObjects(ra.ListStorageObjects); err != nil {
+	if err := initializer.RegisterAfterListStorageObjects(ra.RegisterAfterListStorageObjects); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListTournamentRecords(ra.ListTournamentRecords); err != nil {
+	if err := initializer.RegisterAfterListTournamentRecords(ra.RegisterAfterListTournamentRecords); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListTournamentRecordsAroundOwner(ra.ListTournamentRecordsAroundOwner); err != nil {
+	if err := initializer.RegisterAfterListTournamentRecordsAroundOwner(ra.RegisterAfterListTournamentRecordsAroundOwner); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListTournaments(ra.ListTournaments); err != nil {
+	if err := initializer.RegisterAfterListTournaments(ra.RegisterAfterListTournaments); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterListUserGroups(ra.ListUserGroups); err != nil {
+	if err := initializer.RegisterAfterListUserGroups(ra.RegisterAfterListUserGroups); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterPromoteGroupUsers(ra.PromoteGroupUsers); err != nil {
+	if err := initializer.RegisterAfterPromoteGroupUsers(ra.RegisterAfterPromoteGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterReadStorageObjects(ra.ReadStorageObjects); err != nil {
+	if err := initializer.RegisterAfterReadStorageObjects(ra.RegisterAfterReadStorageObjects); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterSessionLogout(ra.SessionLogout); err != nil {
+	if err := initializer.RegisterAfterSessionLogout(ra.RegisterAfterSessionLogout); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterSessionRefresh(ra.SessionRefresh); err != nil {
+	if err := initializer.RegisterAfterSessionRefresh(ra.RegisterAfterSessionRefresh); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkApple(ra.UnlinkApple); err != nil {
+	if err := initializer.RegisterAfterUnlinkApple(ra.RegisterAfterUnlinkApple); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkCustom(ra.UnlinkCustom); err != nil {
+	if err := initializer.RegisterAfterUnlinkCustom(ra.RegisterAfterUnlinkCustom); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkDevice(ra.UnlinkDevice); err != nil {
+	if err := initializer.RegisterAfterUnlinkDevice(ra.RegisterAfterUnlinkDevice); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkEmail(ra.UnlinkEmail); err != nil {
+	if err := initializer.RegisterAfterUnlinkEmail(ra.RegisterAfterUnlinkEmail); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkFacebook(ra.UnlinkFacebook); err != nil {
+	if err := initializer.RegisterAfterUnlinkFacebook(ra.RegisterAfterUnlinkFacebook); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkFacebookInstantGame(ra.UnlinkFacebookInstantGame); err != nil {
+	if err := initializer.RegisterAfterUnlinkFacebookInstantGame(ra.RegisterAfterUnlinkFacebookInstantGame); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkGameCenter(ra.UnlinkGameCenter); err != nil {
+	if err := initializer.RegisterAfterUnlinkGameCenter(ra.RegisterAfterUnlinkGameCenter); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkGoogle(ra.UnlinkGoogle); err != nil {
+	if err := initializer.RegisterAfterUnlinkGoogle(ra.RegisterAfterUnlinkGoogle); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUnlinkSteam(ra.UnlinkSteam); err != nil {
+	if err := initializer.RegisterAfterUnlinkSteam(ra.RegisterAfterUnlinkSteam); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUpdateAccount(ra.UpdateAccount); err != nil {
+	if err := initializer.RegisterAfterUpdateAccount(ra.RegisterAfterUpdateAccount); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterUpdateGroup(ra.UpdateGroup); err != nil {
+	if err := initializer.RegisterAfterUpdateGroup(ra.RegisterAfterUpdateGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterValidatePurchaseApple(ra.ValidatePurchaseApple); err != nil {
+	if err := initializer.RegisterAfterValidatePurchaseApple(ra.RegisterAfterValidatePurchaseApple); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterValidatePurchaseGoogle(ra.ValidatePurchaseGoogle); err != nil {
+	if err := initializer.RegisterAfterValidatePurchaseGoogle(ra.RegisterAfterValidatePurchaseGoogle); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterValidatePurchaseHuawei(ra.ValidatePurchaseHuawei); err != nil {
+	if err := initializer.RegisterAfterValidatePurchaseHuawei(ra.RegisterAfterValidatePurchaseHuawei); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterWriteLeaderboardRecord(ra.WriteLeaderboardRecord); err != nil {
+	if err := initializer.RegisterAfterWriteLeaderboardRecord(ra.RegisterAfterWriteLeaderboardRecord); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterWriteStorageObjects(ra.WriteStorageObjects); err != nil {
+	if err := initializer.RegisterAfterWriteStorageObjects(ra.RegisterAfterWriteStorageObjects); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterWriteTournamentRecord(ra.WriteTournamentRecord); err != nil {
+	if err := initializer.RegisterAfterWriteTournamentRecord(ra.RegisterAfterWriteTournamentRecord); err != nil {
 		return err
 	}
 
-	if err := initializer.RegisterBeforeAddFriends(rb.AddFriends); err != nil {
+	if err := initializer.RegisterBeforeAddFriends(rb.RegisterBeforeAddFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAddGroupUsers(rb.AddGroupUsers); err != nil {
+	if err := initializer.RegisterBeforeAddGroupUsers(rb.RegisterBeforeAddGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateApple(rb.AuthenticateApple); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateApple(rb.RegisterBeforeAuthenticateApple); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateCustom(rb.AuthenticateCustom); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateCustom(rb.RegisterBeforeAuthenticateCustom); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateDevice(rb.AuthenticateDevice); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateDevice(rb.RegisterBeforeAuthenticateDevice); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateEmail(rb.AuthenticateEmail); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateEmail(rb.RegisterBeforeAuthenticateEmail); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateFacebook(rb.AuthenticateFacebook); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateFacebook(rb.RegisterBeforeAuthenticateFacebook); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateFacebookInstantGame(rb.AuthenticateFacebookInstantGame); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateFacebookInstantGame(rb.RegisterBeforeAuthenticateFacebookInstantGame); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateGameCenter(rb.AuthenticateGameCenter); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateGameCenter(rb.RegisterBeforeAuthenticateGameCenter); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateGoogle(rb.AuthenticateGoogle); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateGoogle(rb.RegisterBeforeAuthenticateGoogle); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeAuthenticateSteam(rb.AuthenticateSteam); err != nil {
+	if err := initializer.RegisterBeforeAuthenticateSteam(rb.RegisterBeforeAuthenticateSteam); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeBanGroupUsers(rb.BanGroupUsers); err != nil {
+	if err := initializer.RegisterBeforeBanGroupUsers(rb.RegisterBeforeBanGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeBlockFriends(rb.BlockFriends); err != nil {
+	if err := initializer.RegisterBeforeBlockFriends(rb.RegisterBeforeBlockFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeCreateGroup(rb.CreateGroup); err != nil {
+	if err := initializer.RegisterBeforeCreateGroup(rb.RegisterBeforeCreateGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeDeleteFriends(rb.DeleteFriends); err != nil {
+	if err := initializer.RegisterBeforeDeleteFriends(rb.RegisterBeforeDeleteFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeDeleteGroup(rb.DeleteGroup); err != nil {
+	if err := initializer.RegisterBeforeDeleteGroup(rb.RegisterBeforeDeleteGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeDeleteLeaderboardRecord(rb.DeleteLeaderboardRecord); err != nil {
+	if err := initializer.RegisterBeforeDeleteLeaderboardRecord(rb.RegisterBeforeDeleteLeaderboardRecord); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeDeleteNotification(rb.DeleteNotification); err != nil {
+	if err := initializer.RegisterBeforeDeleteNotification(rb.RegisterBeforeDeleteNotification); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeDeleteStorageObjects(rb.DeleteStorageObjects); err != nil {
+	if err := initializer.RegisterBeforeDeleteStorageObjects(rb.RegisterBeforeDeleteStorageObjects); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeDemoteGroupUsers(rb.DemoteGroupUsers); err != nil {
+	if err := initializer.RegisterBeforeDemoteGroupUsers(rb.RegisterBeforeDemoteGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeGetAccount(rb.GetAccount); err != nil {
+	if err := initializer.RegisterBeforeGetAccount(rb.RegisterBeforeGetAccount); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeGetUsers(rb.GetUsers); err != nil {
+	if err := initializer.RegisterBeforeGetUsers(rb.RegisterBeforeGetUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeImportFacebookFriends(rb.ImportFacebookFriends); err != nil {
+	if err := initializer.RegisterBeforeImportFacebookFriends(rb.RegisterBeforeImportFacebookFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeImportSteamFriends(rb.ImportSteamFriends); err != nil {
+	if err := initializer.RegisterBeforeImportSteamFriends(rb.RegisterBeforeImportSteamFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeJoinGroup(rb.JoinGroup); err != nil {
+	if err := initializer.RegisterBeforeJoinGroup(rb.RegisterBeforeJoinGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeJoinTournament(rb.JoinTournament); err != nil {
+	if err := initializer.RegisterBeforeJoinTournament(rb.RegisterBeforeJoinTournament); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeKickGroupUsers(rb.KickGroupUsers); err != nil {
+	if err := initializer.RegisterBeforeKickGroupUsers(rb.RegisterBeforeKickGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLeaveGroup(rb.LeaveGroup); err != nil {
+	if err := initializer.RegisterBeforeLeaveGroup(rb.RegisterBeforeLeaveGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkApple(rb.LinkApple); err != nil {
+	if err := initializer.RegisterBeforeLinkApple(rb.RegisterBeforeLinkApple); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkCustom(rb.LinkCustom); err != nil {
+	if err := initializer.RegisterBeforeLinkCustom(rb.RegisterBeforeLinkCustom); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkDevice(rb.LinkDevice); err != nil {
+	if err := initializer.RegisterBeforeLinkDevice(rb.RegisterBeforeLinkDevice); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkEmail(rb.LinkEmail); err != nil {
+	if err := initializer.RegisterBeforeLinkEmail(rb.RegisterBeforeLinkEmail); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkFacebook(rb.LinkFacebook); err != nil {
+	if err := initializer.RegisterBeforeLinkFacebook(rb.RegisterBeforeLinkFacebook); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkFacebookInstantGame(rb.LinkFacebookInstantGame); err != nil {
+	if err := initializer.RegisterBeforeLinkFacebookInstantGame(rb.RegisterBeforeLinkFacebookInstantGame); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkGameCenter(rb.LinkGameCenter); err != nil {
+	if err := initializer.RegisterBeforeLinkGameCenter(rb.RegisterBeforeLinkGameCenter); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkGoogle(rb.LinkGoogle); err != nil {
+	if err := initializer.RegisterBeforeLinkGoogle(rb.RegisterBeforeLinkGoogle); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeLinkSteam(rb.LinkSteam); err != nil {
+	if err := initializer.RegisterBeforeLinkSteam(rb.RegisterBeforeLinkSteam); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListChannelMessages(rb.ListChannelMessages); err != nil {
+	if err := initializer.RegisterBeforeListChannelMessages(rb.RegisterBeforeListChannelMessages); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListFriends(rb.ListFriends); err != nil {
+	if err := initializer.RegisterBeforeListFriends(rb.RegisterBeforeListFriends); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListGroupUsers(rb.ListGroupUsers); err != nil {
+	if err := initializer.RegisterBeforeListGroupUsers(rb.RegisterBeforeListGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListGroups(rb.ListGroups); err != nil {
+	if err := initializer.RegisterBeforeListGroups(rb.RegisterBeforeListGroups); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListLeaderboardRecords(rb.ListLeaderboardRecords); err != nil {
+	if err := initializer.RegisterBeforeListLeaderboardRecords(rb.RegisterBeforeListLeaderboardRecords); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListLeaderboardRecordsAroundOwner(rb.ListLeaderboardRecordsAroundOwner); err != nil {
+	if err := initializer.RegisterBeforeListLeaderboardRecordsAroundOwner(rb.RegisterBeforeListLeaderboardRecordsAroundOwner); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListMatches(rb.ListMatches); err != nil {
+	if err := initializer.RegisterBeforeListMatches(rb.RegisterBeforeListMatches); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListNotifications(rb.ListNotifications); err != nil {
+	if err := initializer.RegisterBeforeListNotifications(rb.RegisterBeforeListNotifications); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListStorageObjects(rb.ListStorageObjects); err != nil {
+	if err := initializer.RegisterBeforeListStorageObjects(rb.RegisterBeforeListStorageObjects); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListTournamentRecords(rb.ListTournamentRecords); err != nil {
+	if err := initializer.RegisterBeforeListTournamentRecords(rb.RegisterBeforeListTournamentRecords); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListTournamentRecordsAroundOwner(rb.ListTournamentRecordsAroundOwner); err != nil {
+	if err := initializer.RegisterBeforeListTournamentRecordsAroundOwner(rb.RegisterBeforeListTournamentRecordsAroundOwner); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListTournaments(rb.ListTournaments); err != nil {
+	if err := initializer.RegisterBeforeListTournaments(rb.RegisterBeforeListTournaments); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeListUserGroups(rb.ListUserGroups); err != nil {
+	if err := initializer.RegisterBeforeListUserGroups(rb.RegisterBeforeListUserGroups); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforePromoteGroupUsers(rb.PromoteGroupUsers); err != nil {
+	if err := initializer.RegisterBeforePromoteGroupUsers(rb.RegisterBeforePromoteGroupUsers); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeReadStorageObjects(rb.ReadStorageObjects); err != nil {
+	if err := initializer.RegisterBeforeReadStorageObjects(rb.RegisterBeforeReadStorageObjects); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeSessionLogout(rb.SessionLogout); err != nil {
+	if err := initializer.RegisterBeforeSessionLogout(rb.RegisterBeforeSessionLogout); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeSessionRefresh(rb.SessionRefresh); err != nil {
+	if err := initializer.RegisterBeforeSessionRefresh(rb.RegisterBeforeSessionRefresh); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkApple(rb.UnlinkApple); err != nil {
+	if err := initializer.RegisterBeforeUnlinkApple(rb.RegisterBeforeUnlinkApple); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkCustom(rb.UnlinkCustom); err != nil {
+	if err := initializer.RegisterBeforeUnlinkCustom(rb.RegisterBeforeUnlinkCustom); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkDevice(rb.UnlinkDevice); err != nil {
+	if err := initializer.RegisterBeforeUnlinkDevice(rb.RegisterBeforeUnlinkDevice); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkEmail(rb.UnlinkEmail); err != nil {
+	if err := initializer.RegisterBeforeUnlinkEmail(rb.RegisterBeforeUnlinkEmail); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkFacebook(rb.UnlinkFacebook); err != nil {
+	if err := initializer.RegisterBeforeUnlinkFacebook(rb.RegisterBeforeUnlinkFacebook); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkFacebookInstantGame(rb.UnlinkFacebookInstantGame); err != nil {
+	if err := initializer.RegisterBeforeUnlinkFacebookInstantGame(rb.RegisterBeforeUnlinkFacebookInstantGame); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkGameCenter(rb.UnlinkGameCenter); err != nil {
+	if err := initializer.RegisterBeforeUnlinkGameCenter(rb.RegisterBeforeUnlinkGameCenter); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkGoogle(rb.UnlinkGoogle); err != nil {
+	if err := initializer.RegisterBeforeUnlinkGoogle(rb.RegisterBeforeUnlinkGoogle); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUnlinkSteam(rb.UnlinkSteam); err != nil {
+	if err := initializer.RegisterBeforeUnlinkSteam(rb.RegisterBeforeUnlinkSteam); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUpdateAccount(rb.UpdateAccount); err != nil {
+	if err := initializer.RegisterBeforeUpdateAccount(rb.RegisterBeforeUpdateAccount); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeUpdateGroup(rb.UpdateGroup); err != nil {
+	if err := initializer.RegisterBeforeUpdateGroup(rb.RegisterBeforeUpdateGroup); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeValidatePurchaseApple(rb.ValidatePurchaseApple); err != nil {
+	if err := initializer.RegisterBeforeValidatePurchaseApple(rb.RegisterBeforeValidatePurchaseApple); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeValidatePurchaseGoogle(rb.ValidatePurchaseGoogle); err != nil {
+	if err := initializer.RegisterBeforeValidatePurchaseGoogle(rb.RegisterBeforeValidatePurchaseGoogle); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeValidatePurchaseHuawei(rb.ValidatePurchaseHuawei); err != nil {
+	if err := initializer.RegisterBeforeValidatePurchaseHuawei(rb.RegisterBeforeValidatePurchaseHuawei); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeWriteLeaderboardRecord(rb.WriteLeaderboardRecord); err != nil {
+	if err := initializer.RegisterBeforeWriteLeaderboardRecord(rb.RegisterBeforeWriteLeaderboardRecord); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeWriteStorageObjects(rb.WriteStorageObjects); err != nil {
+	if err := initializer.RegisterBeforeWriteStorageObjects(rb.RegisterBeforeWriteStorageObjects); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeWriteTournamentRecord(rb.WriteTournamentRecord); err != nil {
+	if err := initializer.RegisterBeforeWriteTournamentRecord(rb.RegisterBeforeWriteTournamentRecord); err != nil {
 		return err
 	}
 
-	if err := initializer.RegisterAfterRt("ChannelJoin", ra.ChannelJoin); err != nil {
+	if err := initializer.RegisterAfterRt("ChannelJoin", ra.RegisterAfterChannelJoin); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("ChannelLeave", ra.ChannelLeave); err != nil {
+	if err := initializer.RegisterAfterRt("ChannelLeave", ra.RegisterAfterChannelLeave); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("ChannelMessageRemove", ra.ChannelMessageRemove); err != nil {
+	if err := initializer.RegisterAfterRt("ChannelMessageRemove", ra.RegisterAfterChannelMessageRemove); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("ChannelMessageSend", ra.ChannelMessageSend); err != nil {
+	if err := initializer.RegisterAfterRt("ChannelMessageSend", ra.RegisterAfterChannelMessageSend); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("ChannelMessageUpdate", ra.ChannelMessageUpdate); err != nil {
+	if err := initializer.RegisterAfterRt("ChannelMessageUpdate", ra.RegisterAfterChannelMessageUpdate); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("MatchCreate", ra.MatchCreate); err != nil {
+	if err := initializer.RegisterAfterRt("MatchCreate", ra.RegisterAfterMatchCreate); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("MatchDataSend", ra.MatchDataSend); err != nil {
+	if err := initializer.RegisterAfterRt("MatchDataSend", ra.RegisterAfterMatchDataSend); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("MatchJoin", ra.MatchJoin); err != nil {
+	if err := initializer.RegisterAfterRt("MatchJoin", ra.RegisterAfterMatchJoin); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("MatchLeave", ra.MatchLeave); err != nil {
+	if err := initializer.RegisterAfterRt("MatchLeave", ra.RegisterAfterMatchLeave); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("MatchmakerAdd", ra.MatchmakerAdd); err != nil {
+	if err := initializer.RegisterAfterRt("MatchmakerAdd", ra.RegisterAfterMatchmakerAdd); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("MatchmakerRemove", ra.MatchmakerRemove); err != nil {
+	if err := initializer.RegisterAfterRt("MatchmakerRemove", ra.RegisterAfterMatchmakerRemove); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("Ping", ra.Ping); err != nil {
+	if err := initializer.RegisterAfterRt("Ping", ra.RegisterAfterPing); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("Pong", ra.Pong); err != nil {
+	if err := initializer.RegisterAfterRt("Pong", ra.RegisterAfterPong); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("StatusFollow", ra.StatusFollow); err != nil {
+	if err := initializer.RegisterAfterRt("StatusFollow", ra.RegisterAfterStatusFollow); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("StatusUnfollow", ra.StatusUnfollow); err != nil {
+	if err := initializer.RegisterAfterRt("StatusUnfollow", ra.RegisterAfterStatusUnfollow); err != nil {
 		return err
 	}
-	if err := initializer.RegisterAfterRt("StatusUpdate", ra.StatusUpdate); err != nil {
+	if err := initializer.RegisterAfterRt("StatusUpdate", ra.RegisterAfterStatusUpdate); err != nil {
 		return err
 	}
 
-	if err := initializer.RegisterBeforeRt("ChannelJoin", rb.ChannelJoin); err != nil {
+	if err := initializer.RegisterBeforeRt("ChannelJoin", rb.RegisterBeforeChannelJoin); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("ChannelLeave", rb.ChannelLeave); err != nil {
+	if err := initializer.RegisterBeforeRt("ChannelLeave", rb.RegisterBeforeChannelLeave); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("ChannelMessageRemove", rb.ChannelMessageRemove); err != nil {
+	if err := initializer.RegisterBeforeRt("ChannelMessageRemove", rb.RegisterBeforeChannelMessageRemove); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("ChannelMessageSend", rb.ChannelMessageSend); err != nil {
+	if err := initializer.RegisterBeforeRt("ChannelMessageSend", rb.RegisterBeforeChannelMessageSend); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("ChannelMessageUpdate", rb.ChannelMessageUpdate); err != nil {
+	if err := initializer.RegisterBeforeRt("ChannelMessageUpdate", rb.RegisterBeforeChannelMessageUpdate); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("MatchCreate", rb.MatchCreate); err != nil {
+	if err := initializer.RegisterBeforeRt("MatchCreate", rb.RegisterBeforeMatchCreate); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("MatchDataSend", rb.MatchDataSend); err != nil {
+	if err := initializer.RegisterBeforeRt("MatchDataSend", rb.RegisterBeforeMatchDataSend); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("MatchJoin", rb.MatchJoin); err != nil {
+	if err := initializer.RegisterBeforeRt("MatchJoin", rb.RegisterBeforeMatchJoin); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("MatchLeave", rb.MatchLeave); err != nil {
+	if err := initializer.RegisterBeforeRt("MatchLeave", rb.RegisterBeforeMatchLeave); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("MatchmakerAdd", rb.MatchmakerAdd); err != nil {
+	if err := initializer.RegisterBeforeRt("MatchmakerAdd", rb.RegisterBeforeMatchmakerAdd); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("MatchmakerRemove", rb.MatchmakerRemove); err != nil {
+	if err := initializer.RegisterBeforeRt("MatchmakerRemove", rb.RegisterBeforeMatchmakerRemove); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("Ping", rb.Ping); err != nil {
+	if err := initializer.RegisterBeforeRt("Ping", rb.RegisterBeforePing); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("Pong", rb.Pong); err != nil {
+	if err := initializer.RegisterBeforeRt("Pong", rb.RegisterBeforePong); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("StatusFollow", rb.StatusFollow); err != nil {
+	if err := initializer.RegisterBeforeRt("StatusFollow", rb.RegisterBeforeStatusFollow); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("StatusUnfollow", rb.StatusUnfollow); err != nil {
+	if err := initializer.RegisterBeforeRt("StatusUnfollow", rb.RegisterBeforeStatusUnfollow); err != nil {
 		return err
 	}
-	if err := initializer.RegisterBeforeRt("StatusUpdate", rb.StatusUpdate); err != nil {
+	if err := initializer.RegisterBeforeRt("StatusUpdate", rb.RegisterBeforeStatusUpdate); err != nil {
 		return err
 	}
 	if err := initializer.RegisterEvent(r.RegisterEvent); err != nil {

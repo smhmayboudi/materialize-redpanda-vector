@@ -8,7 +8,6 @@ import (
 
 	"github.com/heroiclabs/nakama-common/runtime"
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -33,7 +32,7 @@ type NakamaContext struct {
 }
 
 type DataKey struct {
-	Node string `json:"node"`
+	Node string `json:"node,omitempty"`
 }
 
 type DataValue struct {
@@ -48,25 +47,18 @@ type Record struct {
 }
 
 type Records struct {
-	Records []Record `json:"records"`
+	Records []Record `json:"records,omitempty"`
 }
 
+const (
+	instrumentationName = "nakama-modules-go"
+)
+
 func Redpanda(ctx context.Context, logger runtime.Logger, payload map[string]interface{}) error {
-	shutdown := initProvider(ctx, logger)
-	defer shutdown()
-
-	tracer := otel.Tracer("nakama-modules-go")
-
-	commonAttrs := []attribute.KeyValue{
-		attribute.String("key-1", "value-1"),
-		attribute.String("key-2", "value-2"),
-		attribute.String("key-3", "value-3"),
-	}
-
-	ctx, span := tracer.Start(
-		context.Background(),
+	ctx, span := otel.Tracer(instrumentationName).Start(
+		ctx,
 		"Redpanda",
-		trace.WithAttributes(commonAttrs...))
+		trace.WithSpanKind(trace.SpanKindProducer))
 	defer span.End()
 
 	env, ok := ctx.Value(runtime.RUNTIME_CTX_ENV).(map[string]string)
@@ -175,12 +167,22 @@ func Redpanda(ctx context.Context, logger runtime.Logger, payload map[string]int
 	}
 	body, err := json.Marshal(records)
 	if err != nil {
-		logger.Error(err.Error())
+		logger.Error("Failed to marshaling to JSON: %v", err)
 		return err
 	}
-	res, err := http.Post("http://redpanda:8082/topics/nakama", "application/vnd.kafka.json.v2+json", bytes.NewReader(body))
+
+	req, err := http.NewRequestWithContext(ctx, "POST", "http://redpanda:8082/topics/nakama", bytes.NewReader(body))
+	req.Header.Add("Content-Type", "application/vnd.kafka.json.v2+json")
 	if err != nil {
-		logger.Error(err.Error())
+		logger.Error("Failed to create request with context: %v", err)
+		return err
+	}
+	// client := http.Client{Transport: otelhttp.NewTransport(http.DefaultTransport)}
+	client := http.Client{}
+	res, err := client.Do(req)
+	// res, err := client.Post("http://redpanda:8082/topics/nakama", "application/vnd.kafka.json.v2+json", bytes.NewReader(body))
+	if err != nil {
+		logger.Error("Failed to create http client: %v", err)
 		return err
 	}
 	defer res.Body.Close()

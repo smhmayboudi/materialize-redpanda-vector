@@ -125,8 +125,8 @@ services:
     depends_on:
       cockroach:
         condition: service_healthy
-      # jaeger:
-      #   condition: service_healthy
+      jaeger:
+        condition: service_started
       redpanda:
         condition: service_healthy
     entrypoint:
