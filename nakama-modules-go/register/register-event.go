@@ -7,6 +7,7 @@ import (
 	"github.com/heroiclabs/nakama-common/runtime"
 	u "github.com/smhmayboudi/materialize-redpanda-vector/nakama-modules-go/util"
 	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -18,6 +19,9 @@ func RegisterEvent(ctx context.Context, logger runtime.Logger, evt *api.Event) {
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterEvent", "event": evt}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 	}
 }

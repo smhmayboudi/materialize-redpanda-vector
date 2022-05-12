@@ -19,7 +19,7 @@ func RegisterBeforeMatchmakerRemove(ctx context.Context, logger runtime.Logger, 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeMatchmakerRemove", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil

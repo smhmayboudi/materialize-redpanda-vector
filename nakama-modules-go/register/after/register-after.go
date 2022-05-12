@@ -8,6 +8,7 @@ import (
 	"github.com/heroiclabs/nakama-common/runtime"
 	u "github.com/smhmayboudi/materialize-redpanda-vector/nakama-modules-go/util"
 	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -19,7 +20,10 @@ func RegisterAfterAddFriends(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterAddFriends", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -32,7 +36,10 @@ func RegisterAfterAddGroupUsers(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterAddGroupUsers", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -45,7 +52,10 @@ func RegisterAfterAuthenticateApple(ctx context.Context, logger runtime.Logger, 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -58,7 +68,10 @@ func RegisterAfterAuthenticateCustom(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -71,7 +84,10 @@ func RegisterAfterAuthenticateDevice(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -84,7 +100,10 @@ func RegisterAfterAuthenticateEmail(ctx context.Context, logger runtime.Logger, 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -97,7 +116,10 @@ func RegisterAfterAuthenticateFacebook(ctx context.Context, logger runtime.Logge
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -110,7 +132,10 @@ func RegisterAfterAuthenticateFacebookInstantGame(ctx context.Context, logger ru
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -123,7 +148,10 @@ func RegisterAfterAuthenticateGameCenter(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -136,7 +164,10 @@ func RegisterAfterAuthenticateGoogle(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -149,7 +180,10 @@ func RegisterAfterAuthenticateSteam(ctx context.Context, logger runtime.Logger, 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -162,7 +196,10 @@ func RegisterAfterBanGroupUsers(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterBanGroupUsers", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -175,7 +212,10 @@ func RegisterAfterBlockFriends(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterBlockFriends", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -188,7 +228,10 @@ func RegisterAfterCreateGroup(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -201,7 +244,10 @@ func RegisterAfterDeleteFriends(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterDeleteFriends", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -214,7 +260,10 @@ func RegisterAfterDeleteGroup(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterDeleteGroup", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -227,7 +276,10 @@ func RegisterAfterDeleteLeaderboardRecord(ctx context.Context, logger runtime.Lo
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterDeleteLeaderboardRecord", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -240,7 +292,10 @@ func RegisterAfterDeleteNotification(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterDeleteNotification", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -253,7 +308,10 @@ func RegisterAfterDeleteStorageObjects(ctx context.Context, logger runtime.Logge
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterDeleteStorageObjects", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -266,7 +324,10 @@ func RegisterAfterDemoteGroupUsers(ctx context.Context, logger runtime.Logger, d
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterDemoteGroupUsers", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -279,7 +340,10 @@ func RegisterAfterGetAccount(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "out": out}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -292,7 +356,10 @@ func RegisterAfterGetUsers(ctx context.Context, logger runtime.Logger, db *sql.D
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -305,7 +372,10 @@ func RegisterAfterImportFacebookFriends(ctx context.Context, logger runtime.Logg
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterImportFacebookFriends", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -318,7 +388,10 @@ func RegisterAfterImportSteamFriends(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterImportSteamFriends", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -331,7 +404,10 @@ func RegisterAfterJoinGroup(ctx context.Context, logger runtime.Logger, db *sql.
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterJoinGroup", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -344,7 +420,10 @@ func RegisterAfterJoinTournament(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterJoinTournament", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -357,7 +436,10 @@ func RegisterAfterKickGroupUsers(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterKickGroupUsers", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -370,7 +452,10 @@ func RegisterAfterLeaveGroup(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLeaveGroup", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -383,7 +468,10 @@ func RegisterAfterLinkApple(ctx context.Context, logger runtime.Logger, db *sql.
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkApple", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -396,7 +484,10 @@ func RegisterAfterLinkCustom(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkCustom", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -409,7 +500,10 @@ func RegisterAfterLinkDevice(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkDevice", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -422,7 +516,10 @@ func RegisterAfterLinkEmail(ctx context.Context, logger runtime.Logger, db *sql.
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkEmail", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -435,7 +532,10 @@ func RegisterAfterLinkFacebook(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkFacebook", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -448,7 +548,10 @@ func RegisterAfterLinkFacebookInstantGame(ctx context.Context, logger runtime.Lo
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkFacebookInstantGame", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -461,7 +564,10 @@ func RegisterAfterLinkGameCenter(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkGameCenter", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -474,7 +580,10 @@ func RegisterAfterLinkGoogle(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkGoogle", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -487,7 +596,10 @@ func RegisterAfterLinkSteam(ctx context.Context, logger runtime.Logger, db *sql.
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterLinkSteam", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -500,7 +612,10 @@ func RegisterAfterListChannelMessages(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -513,7 +628,10 @@ func RegisterAfterListFriends(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "out": out}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -526,7 +644,10 @@ func RegisterAfterListGroupUsers(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -539,7 +660,10 @@ func RegisterAfterListGroups(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -552,7 +676,10 @@ func RegisterAfterListLeaderboardRecords(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -565,7 +692,10 @@ func RegisterAfterListLeaderboardRecordsAroundOwner(ctx context.Context, logger 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -578,7 +708,10 @@ func RegisterAfterListMatches(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -591,7 +724,10 @@ func RegisterAfterListNotifications(ctx context.Context, logger runtime.Logger, 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -604,7 +740,10 @@ func RegisterAfterListStorageObjects(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -617,7 +756,10 @@ func RegisterAfterListTournamentRecords(ctx context.Context, logger runtime.Logg
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -630,7 +772,10 @@ func RegisterAfterListTournamentRecordsAroundOwner(ctx context.Context, logger r
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -643,7 +788,10 @@ func RegisterAfterListTournaments(ctx context.Context, logger runtime.Logger, db
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -656,7 +804,10 @@ func RegisterAfterListUserGroups(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -669,7 +820,10 @@ func RegisterAfterPromoteGroupUsers(ctx context.Context, logger runtime.Logger, 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterPromoteGroupUsers", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -682,7 +836,10 @@ func RegisterAfterReadStorageObjects(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -695,7 +852,10 @@ func RegisterAfterSessionLogout(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterSessionLogout", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -708,7 +868,10 @@ func RegisterAfterSessionRefresh(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -721,7 +884,10 @@ func RegisterAfterUnlinkApple(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkApple", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -734,7 +900,10 @@ func RegisterAfterUnlinkCustom(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkCustom", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -747,7 +916,10 @@ func RegisterAfterUnlinkDevice(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkDevice", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -760,7 +932,10 @@ func RegisterAfterUnlinkEmail(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkEmail", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -773,7 +948,10 @@ func RegisterAfterUnlinkFacebook(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkFacebook", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -786,7 +964,10 @@ func RegisterAfterUnlinkFacebookInstantGame(ctx context.Context, logger runtime.
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkFacebookInstantGame", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -799,7 +980,10 @@ func RegisterAfterUnlinkGameCenter(ctx context.Context, logger runtime.Logger, d
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkGameCenter", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -812,7 +996,10 @@ func RegisterAfterUnlinkGoogle(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkGoogle", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -825,7 +1012,10 @@ func RegisterAfterUnlinkSteam(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUnlinkSteam", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -838,7 +1028,10 @@ func RegisterAfterUpdateAccount(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUpdateAccount", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -851,7 +1044,10 @@ func RegisterAfterUpdateGroup(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterUpdateGroup", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -864,7 +1060,10 @@ func RegisterAfterValidatePurchaseApple(ctx context.Context, logger runtime.Logg
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -877,7 +1076,10 @@ func RegisterAfterValidatePurchaseGoogle(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -890,7 +1092,10 @@ func RegisterAfterValidatePurchaseHuawei(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -903,7 +1108,10 @@ func RegisterAfterWriteLeaderboardRecord(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -916,7 +1124,10 @@ func RegisterAfterWriteStorageObjects(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil
@@ -929,7 +1140,10 @@ func RegisterAfterWriteTournamentRecord(ctx context.Context, logger runtime.Logg
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterAfterChannelJoin", "in": in}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return err
 	}
 	return nil

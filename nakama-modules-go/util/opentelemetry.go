@@ -15,20 +15,13 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.10.0"
 )
 
-const (
-	serviceName    = "nakama-modules-go"
-	serviceVersion = "v0.1.0"
-	url            = "http://jaeger:14268/api/traces"
-)
-
 func InitProvider(ctx context.Context, logger runtime.Logger) func() {
-	// b3 := b3.New(b3.WithInjectEncoding(b3.B3SingleHeader))
-	// otel.SetTextMapPropagator(b3)
-
 	rna := resource.NewWithAttributes(
 		semconv.SchemaURL,
-		semconv.ServiceNameKey.String(serviceName),
-		semconv.ServiceVersionKey.String(serviceVersion),
+		semconv.ServiceInstanceIDKey.String(ServiceInstanceId),
+		semconv.ServiceNameKey.String(ServiceName),
+		semconv.ServiceNamespaceKey.String(ServiceNamespace),
+		semconv.ServiceVersionKey.String(ServiceVersion),
 	)
 	rm, err := resource.Merge(
 		resource.Default(),
@@ -53,11 +46,11 @@ func InitProvider(ctx context.Context, logger runtime.Logger) func() {
 	if err != nil {
 		logger.Error("Failed to create resource: %v", err)
 	}
-	ej, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(url)))
+	ej, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(URL)))
 	if err != nil {
 		logger.Error("Failed to create jaeger exporter: %v", err)
 	}
-	es, err := stdouttrace.New(stdouttrace.WithPrettyPrint())
+	es, err := stdouttrace.New()
 	if err != nil {
 		logger.Error("Failed to create stdouttrace exporter: %v", err)
 	}

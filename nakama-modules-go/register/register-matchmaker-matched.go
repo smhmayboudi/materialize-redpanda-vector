@@ -7,6 +7,7 @@ import (
 	"github.com/heroiclabs/nakama-common/runtime"
 	u "github.com/smhmayboudi/materialize-redpanda-vector/nakama-modules-go/util"
 	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -18,7 +19,10 @@ func RegisterMatchmakerMatched(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatchmakerMatched", "entries": entries}); err != nil {
-		logger.Error("Error calling redpanda: %v", err)
+		textMapCarrier := u.NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Error calling redpanda")
 		return "", err
 	}
 	return "", nil

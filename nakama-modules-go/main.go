@@ -14,34 +14,9 @@ import (
 )
 
 func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, initializer runtime.Initializer) error {
-	// ctx := otel.GetTextMapPropagator().Extract(ctx, propagation.HeaderCarrier(r.Header))
-
-	// bb := b3.New(b3.WithInjectEncoding(b3.B3SingleHeader))
-	// carrier := propagation.TextMapCarrier{}
-	// bb.Extract(ctx, carrier)
-	// bb.Inject(ctx, carrier)
-	// otel.SetTextMapPropagator(bb)
-
 	u.InitProvider(ctx, logger)
 	// shutdown := u.InitProvider(ctx, logger)
 	// defer shutdown()
-
-	// b, err := baggage.Parse("baggage_key=baggage_value")
-	// if err != nil {
-	// 	logger.Error("Failed to create baggage: %v", err)
-	// 	return err
-	// }
-	// bm, err := baggage.NewMember(string(attribute.Key("baggage_key")), "baggage_value")
-	// if err != nil {
-	// 	logger.Error("Failed to create baggage member: %v", err)
-	// 	return err
-	// }
-	// b, err := baggage.New(bm)
-	// if err != nil {
-	// 	logger.Error("Failed to create baggage: %v", err)
-	// 	return err
-	// }
-	// ctx := baggage.ContextWithBaggage(ctx, b)
 
 	// ctx = httptrace.WithClientTrace(ctx, otelhttptrace.NewClientTrace(ctx))
 
@@ -50,11 +25,6 @@ func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runti
 		"InitModule",
 		trace.WithSpanKind(trace.SpanKindInternal))
 	defer span.End()
-
-	// attributes := []attribute.KeyValue{
-	// 	attribute.String("attribute_key", "attribute_value"),
-	// }
-	// span.SetAttributes(attributes...)
 
 	if err := initializer.RegisterAfterAddFriends(ra.RegisterAfterAddFriends); err != nil {
 		return err

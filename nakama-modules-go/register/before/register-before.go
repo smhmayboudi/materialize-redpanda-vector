@@ -19,7 +19,7 @@ func RegisterBeforeAddFriends(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAddFriends", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -32,7 +32,7 @@ func RegisterBeforeAddGroupUsers(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAddGroupUsers", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -45,7 +45,7 @@ func RegisterBeforeAuthenticateApple(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateApple", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -58,7 +58,7 @@ func RegisterBeforeAuthenticateCustom(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateCustom", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -71,7 +71,7 @@ func RegisterBeforeAuthenticateDevice(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateDevice", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -84,7 +84,7 @@ func RegisterBeforeAuthenticateEmail(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateEmail", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -97,7 +97,7 @@ func RegisterBeforeAuthenticateFacebook(ctx context.Context, logger runtime.Logg
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateFacebook", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -110,7 +110,7 @@ func RegisterBeforeAuthenticateFacebookInstantGame(ctx context.Context, logger r
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateFacebookInstantGame", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -123,7 +123,7 @@ func RegisterBeforeAuthenticateGameCenter(ctx context.Context, logger runtime.Lo
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateGameCenter", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -136,7 +136,7 @@ func RegisterBeforeAuthenticateGoogle(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateGoogle", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -149,7 +149,7 @@ func RegisterBeforeAuthenticateSteam(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeAuthenticateSteam", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -162,7 +162,7 @@ func RegisterBeforeBanGroupUsers(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeBanGroupUsers", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -175,7 +175,7 @@ func RegisterBeforeBlockFriends(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeBlockFriends", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -188,7 +188,7 @@ func RegisterBeforeCreateGroup(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeCreateGroup", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -201,7 +201,7 @@ func RegisterBeforeDeleteFriends(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeDeleteFriends", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -214,7 +214,7 @@ func RegisterBeforeDeleteGroup(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeDeleteGroup", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -227,7 +227,7 @@ func RegisterBeforeDeleteLeaderboardRecord(ctx context.Context, logger runtime.L
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeDeleteLeaderboardRecord", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -240,7 +240,7 @@ func RegisterBeforeDeleteNotification(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeDeleteNotification", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -253,7 +253,7 @@ func RegisterBeforeDeleteStorageObjects(ctx context.Context, logger runtime.Logg
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeDeleteStorageObjects", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -266,7 +266,7 @@ func RegisterBeforeDemoteGroupUsers(ctx context.Context, logger runtime.Logger, 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeDemoteGroupUsers", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -279,7 +279,7 @@ func RegisterBeforeGetAccount(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeGetAccount"}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return err
 	// }
 	return nil
@@ -292,7 +292,7 @@ func RegisterBeforeGetUsers(ctx context.Context, logger runtime.Logger, db *sql.
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeGetUsers", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -305,7 +305,7 @@ func RegisterBeforeImportFacebookFriends(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeImportFacebookFriends", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -318,7 +318,7 @@ func RegisterBeforeImportSteamFriends(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeImportSteamFriends", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -331,7 +331,7 @@ func RegisterBeforeJoinGroup(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeJoinGroup", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -344,7 +344,7 @@ func RegisterBeforeJoinTournament(ctx context.Context, logger runtime.Logger, db
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeJoinTournament", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -357,7 +357,7 @@ func RegisterBeforeKickGroupUsers(ctx context.Context, logger runtime.Logger, db
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeKickGroupUsers", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -370,7 +370,7 @@ func RegisterBeforeLeaveGroup(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLeaveGroup", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -383,7 +383,7 @@ func RegisterBeforeLinkApple(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkApple", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -396,7 +396,7 @@ func RegisterBeforeLinkCustom(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkCustom", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -409,7 +409,7 @@ func RegisterBeforeLinkDevice(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkDevice", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -422,7 +422,7 @@ func RegisterBeforeLinkEmail(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkEmail", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -435,7 +435,7 @@ func RegisterBeforeLinkFacebook(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkFacebook", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -448,7 +448,7 @@ func RegisterBeforeLinkFacebookInstantGame(ctx context.Context, logger runtime.L
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkFacebookInstantGame", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -461,7 +461,7 @@ func RegisterBeforeLinkGameCenter(ctx context.Context, logger runtime.Logger, db
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkGameCenter", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -474,7 +474,7 @@ func RegisterBeforeLinkGoogle(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkGoogle", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -487,7 +487,7 @@ func RegisterBeforeLinkSteam(ctx context.Context, logger runtime.Logger, db *sql
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeLinkSteam", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -500,7 +500,7 @@ func RegisterBeforeListChannelMessages(ctx context.Context, logger runtime.Logge
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListChannelMessages", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -513,7 +513,7 @@ func RegisterBeforeListFriends(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListFriends", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -526,7 +526,7 @@ func RegisterBeforeListGroupUsers(ctx context.Context, logger runtime.Logger, db
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListGroupUsers", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -539,7 +539,7 @@ func RegisterBeforeListGroups(ctx context.Context, logger runtime.Logger, db *sq
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListGroups", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -552,7 +552,7 @@ func RegisterBeforeListLeaderboardRecords(ctx context.Context, logger runtime.Lo
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListLeaderboardRecords", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -565,7 +565,7 @@ func RegisterBeforeListLeaderboardRecordsAroundOwner(ctx context.Context, logger
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListLeaderboardRecordsAroundOwner", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -578,7 +578,7 @@ func RegisterBeforeListMatches(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListMatches", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -591,7 +591,7 @@ func RegisterBeforeListNotifications(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListNotifications", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -604,7 +604,7 @@ func RegisterBeforeListStorageObjects(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListStorageObjects", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -617,7 +617,7 @@ func RegisterBeforeListTournamentRecords(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListTournamentRecords", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -630,7 +630,7 @@ func RegisterBeforeListTournamentRecordsAroundOwner(ctx context.Context, logger 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListTournamentRecordsAroundOwner", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -643,7 +643,7 @@ func RegisterBeforeListTournaments(ctx context.Context, logger runtime.Logger, d
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListTournaments", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -656,7 +656,7 @@ func RegisterBeforeListUserGroups(ctx context.Context, logger runtime.Logger, db
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeListUserGroups", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -669,7 +669,7 @@ func RegisterBeforePromoteGroupUsers(ctx context.Context, logger runtime.Logger,
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforePromoteGroupUsers", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -682,7 +682,7 @@ func RegisterBeforeReadStorageObjects(ctx context.Context, logger runtime.Logger
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeReadStorageObjects", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -695,7 +695,7 @@ func RegisterBeforeSessionLogout(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeSessionLogout", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -708,7 +708,7 @@ func RegisterBeforeSessionRefresh(ctx context.Context, logger runtime.Logger, db
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeSessionRefresh", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -721,7 +721,7 @@ func RegisterBeforeUnlinkApple(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkApple", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -734,7 +734,7 @@ func RegisterBeforeUnlinkCustom(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkCustom", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -747,7 +747,7 @@ func RegisterBeforeUnlinkDevice(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkDevice", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -760,7 +760,7 @@ func RegisterBeforeUnlinkEmail(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkEmail", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -773,7 +773,7 @@ func RegisterBeforeUnlinkFacebook(ctx context.Context, logger runtime.Logger, db
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkFacebook", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -786,7 +786,7 @@ func RegisterBeforeUnlinkFacebookInstantGame(ctx context.Context, logger runtime
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkFacebookInstantGame", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -799,7 +799,7 @@ func RegisterBeforeUnlinkGameCenter(ctx context.Context, logger runtime.Logger, 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkGameCenter", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -812,7 +812,7 @@ func RegisterBeforeUnlinkGoogle(ctx context.Context, logger runtime.Logger, db *
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkGoogle", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -825,7 +825,7 @@ func RegisterBeforeUnlinkSteam(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUnlinkSteam", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -838,7 +838,7 @@ func RegisterBeforeUpdateAccount(ctx context.Context, logger runtime.Logger, db 
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUpdateAccount", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -851,7 +851,7 @@ func RegisterBeforeUpdateGroup(ctx context.Context, logger runtime.Logger, db *s
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeUpdateGroup", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -864,7 +864,7 @@ func RegisterBeforeValidatePurchaseApple(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeValidatePurchaseApple", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -877,7 +877,7 @@ func RegisterBeforeValidatePurchaseGoogle(ctx context.Context, logger runtime.Lo
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeValidatePurchaseGoogle", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -890,7 +890,7 @@ func RegisterBeforeValidatePurchaseHuawei(ctx context.Context, logger runtime.Lo
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeValidatePurchaseHuawei", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -903,7 +903,7 @@ func RegisterBeforeWriteLeaderboardRecord(ctx context.Context, logger runtime.Lo
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeWriteLeaderboardRecord", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -916,7 +916,7 @@ func RegisterBeforeWriteStorageObjects(ctx context.Context, logger runtime.Logge
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeWriteStorageObjects", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil
@@ -929,7 +929,7 @@ func RegisterBeforeWriteTournamentRecord(ctx context.Context, logger runtime.Log
 	defer span.End()
 
 	// if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterBeforeWriteTournamentRecord", "in": in}); err != nil {
-	// 	logger.Error("Error calling redpanda: %v", err)
+	// 	u.HandleError(ctx, logger, span, err, "Error calling redpanda")
 	// 	return in, err
 	// }
 	return in, nil

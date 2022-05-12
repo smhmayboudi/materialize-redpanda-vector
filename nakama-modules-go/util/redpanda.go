@@ -8,6 +8,7 @@ import (
 
 	"github.com/heroiclabs/nakama-common/runtime"
 	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -36,6 +37,7 @@ type DataKey struct {
 }
 
 type DataValue struct {
+	B3      string                 `json:"b3,omitempty"`
 	Context NakamaContext          `json:"context,omitempty"`
 	Payload map[string]interface{} `json:"payload,omitempty"`
 }
@@ -50,64 +52,13 @@ type Records struct {
 	Records []Record `json:"records,omitempty"`
 }
 
-const (
-	instrumentationName = "nakama-modules-go"
-)
-
 func Redpanda(ctx context.Context, logger runtime.Logger, payload map[string]interface{}) error {
-	ctx, span := otel.Tracer(instrumentationName).Start(
+	ctx, span := otel.Tracer(InstrumentationName).Start(
 		ctx,
 		"Redpanda",
 		trace.WithSpanKind(trace.SpanKindProducer))
 	defer span.End()
 
-	env, ok := ctx.Value(runtime.RUNTIME_CTX_ENV).(map[string]string)
-	if !ok {
-		env = map[string]string{}
-	}
-	executionMode, ok := ctx.Value(runtime.RUNTIME_CTX_MODE).(string)
-	if !ok {
-		executionMode = ""
-	}
-	node, ok := ctx.Value(runtime.RUNTIME_CTX_NODE).(string)
-	if !ok {
-		node = ""
-	}
-	headers, ok := ctx.Value(runtime.RUNTIME_CTX_HEADERS).(map[string]string)
-	if !ok {
-		headers = map[string]string{}
-	}
-	dataKey := &DataKey{
-		Node: node,
-	}
-	queryParams, ok := ctx.Value(runtime.RUNTIME_CTX_QUERY_PARAMS).(map[string]string)
-	if !ok {
-		queryParams = map[string]string{}
-	}
-	userId, ok := ctx.Value(runtime.RUNTIME_CTX_USER_ID).(string)
-	if !ok {
-		userId = ""
-	}
-	username, ok := ctx.Value(runtime.RUNTIME_CTX_USERNAME).(string)
-	if !ok {
-		userId = ""
-	}
-	vars, ok := ctx.Value(runtime.RUNTIME_CTX_VARS).(map[string]string)
-	if !ok {
-		vars = map[string]string{}
-	}
-	userSessionExp, ok := ctx.Value(runtime.RUNTIME_CTX_USER_SESSION_EXP).(int)
-	if !ok {
-		userSessionExp = 0
-	}
-	sessionId, ok := ctx.Value(runtime.RUNTIME_CTX_SESSION_ID).(string)
-	if !ok {
-		sessionId = ""
-	}
-	lang, ok := ctx.Value(runtime.RUNTIME_CTX_LANG).(string)
-	if !ok {
-		lang = ""
-	}
 	clientIp, ok := ctx.Value(runtime.RUNTIME_CTX_CLIENT_IP).(string)
 	if !ok {
 		clientIp = ""
@@ -116,21 +67,65 @@ func Redpanda(ctx context.Context, logger runtime.Logger, payload map[string]int
 	if !ok {
 		clientSort = ""
 	}
+	env, ok := ctx.Value(runtime.RUNTIME_CTX_ENV).(map[string]string)
+	if !ok {
+		env = map[string]string{}
+	}
+	executionMode, ok := ctx.Value(runtime.RUNTIME_CTX_MODE).(string)
+	if !ok {
+		executionMode = ""
+	}
+	headers, ok := ctx.Value(runtime.RUNTIME_CTX_HEADERS).(map[string]string)
+	if !ok {
+		headers = map[string]string{}
+	}
+	lang, ok := ctx.Value(runtime.RUNTIME_CTX_LANG).(string)
+	if !ok {
+		lang = ""
+	}
 	matchId, ok := ctx.Value(runtime.RUNTIME_CTX_MATCH_ID).(string)
 	if !ok {
 		matchId = ""
-	}
-	matchNode, ok := ctx.Value(runtime.RUNTIME_CTX_MATCH_NODE).(string)
-	if !ok {
-		matchNode = ""
 	}
 	matchLabel, ok := ctx.Value(runtime.RUNTIME_CTX_MATCH_LABEL).(string)
 	if !ok {
 		matchLabel = ""
 	}
+	matchNode, ok := ctx.Value(runtime.RUNTIME_CTX_MATCH_NODE).(string)
+	if !ok {
+		matchNode = ""
+	}
 	matchTickRate, ok := ctx.Value(runtime.RUNTIME_CTX_MATCH_TICK_RATE).(int)
 	if !ok {
 		matchTickRate = 0
+	}
+	node, ok := ctx.Value(runtime.RUNTIME_CTX_NODE).(string)
+	if !ok {
+		node = ""
+	}
+	queryParams, ok := ctx.Value(runtime.RUNTIME_CTX_QUERY_PARAMS).(map[string]string)
+	if !ok {
+		queryParams = map[string]string{}
+	}
+	sessionId, ok := ctx.Value(runtime.RUNTIME_CTX_SESSION_ID).(string)
+	if !ok {
+		sessionId = ""
+	}
+	userId, ok := ctx.Value(runtime.RUNTIME_CTX_USER_ID).(string)
+	if !ok {
+		userId = ""
+	}
+	userSessionExp, ok := ctx.Value(runtime.RUNTIME_CTX_USER_SESSION_EXP).(int)
+	if !ok {
+		userSessionExp = 0
+	}
+	username, ok := ctx.Value(runtime.RUNTIME_CTX_USERNAME).(string)
+	if !ok {
+		userId = ""
+	}
+	vars, ok := ctx.Value(runtime.RUNTIME_CTX_VARS).(map[string]string)
+	if !ok {
+		vars = map[string]string{}
 	}
 	nakamaContext := &NakamaContext{
 		ClientIp:       clientIp,
@@ -151,7 +146,12 @@ func Redpanda(ctx context.Context, logger runtime.Logger, payload map[string]int
 		Username:       username,
 		Vars:           vars,
 	}
+	textMapCarrier := NewTextMapCarrier(ctx)
+	dataKey := &DataKey{
+		Node: node,
+	}
 	dataValue := &DataValue{
+		B3:      textMapCarrier.B3,
 		Context: *nakamaContext,
 		Payload: payload,
 	}
@@ -167,22 +167,30 @@ func Redpanda(ctx context.Context, logger runtime.Logger, payload map[string]int
 	}
 	body, err := json.Marshal(records)
 	if err != nil {
-		logger.Error("Failed to marshaling to JSON: %v", err)
+		textMapCarrier := NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Failed to marshaling to JSON")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Failed to marshaling to JSON")
 		return err
 	}
 
-	req, err := http.NewRequestWithContext(ctx, "POST", "http://redpanda:8082/topics/nakama", bytes.NewReader(body))
+	req, err := http.NewRequestWithContext(context.Background(), "POST", "http://redpanda:8082/topics/nakama", bytes.NewReader(body))
 	req.Header.Add("Content-Type", "application/vnd.kafka.json.v2+json")
 	if err != nil {
-		logger.Error("Failed to create request with context: %v", err)
+		textMapCarrier := NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Failed to create request with context")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Failed to create request with context")
 		return err
 	}
 	// client := http.Client{Transport: otelhttp.NewTransport(http.DefaultTransport)}
 	client := http.Client{}
 	res, err := client.Do(req)
-	// res, err := client.Post("http://redpanda:8082/topics/nakama", "application/vnd.kafka.json.v2+json", bytes.NewReader(body))
 	if err != nil {
-		logger.Error("Failed to create http client: %v", err)
+		textMapCarrier := NewTextMapCarrier(ctx)
+		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Failed to create http client")
+		span.RecordError(err)
+		span.SetStatus(codes.Error, "Failed to create http client")
 		return err
 	}
 	defer res.Body.Close()
