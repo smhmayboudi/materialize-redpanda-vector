@@ -20,7 +20,7 @@ func RegisterEvent(ctx context.Context, logger runtime.Logger, evt *api.Event) {
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterEvent", "event": evt}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 	}

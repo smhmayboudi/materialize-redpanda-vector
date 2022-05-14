@@ -28,7 +28,7 @@ func (m *Match) MatchInit(ctx context.Context, logger runtime.Logger, db *sql.DB
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatch.MatchInit", "params": params}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 		return params, 0, ""
@@ -44,7 +44,7 @@ func (m *Match) MatchInit(ctx context.Context, logger runtime.Logger, db *sql.DB
 	}
 	if state.debug {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match init, starting with debug: %v", state.debug))
+		logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match init, starting with debug: %v", state.debug))
 	}
 	tickRate := 1
 	label := "skill=100-150"
@@ -59,14 +59,14 @@ func (m *Match) MatchJoinAttempt(ctx context.Context, logger runtime.Logger, db 
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatch.MatchJoinAttempt", "tick": tick, "state": state, "presence": presence, "metadata": metadata}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 		return state, false, ""
 	}
 	if state.(*MatchState).debug {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match join attempt username %v user_id %v session_id %v node %v with metadata %v", presence.GetUsername(), presence.GetUserId(), presence.GetSessionId(), presence.GetNodeId(), metadata))
+		logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match join attempt username %v user_id %v session_id %v node %v with metadata %v", presence.GetUsername(), presence.GetUserId(), presence.GetSessionId(), presence.GetNodeId(), metadata))
 	}
 	return state, true, ""
 }
@@ -79,7 +79,7 @@ func (m *Match) MatchJoin(ctx context.Context, logger runtime.Logger, db *sql.DB
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatch.MatchJoin", "tick": tick, "state": state, "presences": presences}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 		return state
@@ -87,7 +87,7 @@ func (m *Match) MatchJoin(ctx context.Context, logger runtime.Logger, db *sql.DB
 	if state.(*MatchState).debug {
 		for _, presence := range presences {
 			textMapCarrier := u.NewTextMapCarrier(ctx)
-			logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match join username %v user_id %v session_id %v node %v", presence.GetUsername(), presence.GetUserId(), presence.GetSessionId(), presence.GetNodeId()))
+			logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match join username %v user_id %v session_id %v node %v", presence.GetUsername(), presence.GetUserId(), presence.GetSessionId(), presence.GetNodeId()))
 		}
 	}
 	return state
@@ -101,7 +101,7 @@ func (m *Match) MatchLeave(ctx context.Context, logger runtime.Logger, db *sql.D
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatch.MatchLeave", "tick": tick, "state": state, "presences": presences}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 		return state
@@ -109,7 +109,7 @@ func (m *Match) MatchLeave(ctx context.Context, logger runtime.Logger, db *sql.D
 	if state.(*MatchState).debug {
 		for _, presence := range presences {
 			textMapCarrier := u.NewTextMapCarrier(ctx)
-			logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match leave username %v user_id %v session_id %v node %v", presence.GetUsername(), presence.GetUserId(), presence.GetSessionId(), presence.GetNodeId()))
+			logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match leave username %v user_id %v session_id %v node %v", presence.GetUsername(), presence.GetUserId(), presence.GetSessionId(), presence.GetNodeId()))
 		}
 	}
 	return state
@@ -123,15 +123,15 @@ func (m *Match) MatchLoop(ctx context.Context, logger runtime.Logger, db *sql.DB
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatch.MatchLeave", "tick": tick, "state": state, "messages": messages}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 		return state
 	}
 	if state.(*MatchState).debug {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match loop match_id %v tick %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), tick))
-		logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match loop match_id %v message count %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), len(messages)))
+		logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match loop match_id %v tick %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), tick))
+		logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match loop match_id %v message count %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), len(messages)))
 	}
 	if tick >= 10 {
 		return nil
@@ -147,15 +147,15 @@ func (m *Match) MatchTerminate(ctx context.Context, logger runtime.Logger, db *s
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatch.MatchTerminate", "tick": tick, "state": state, "graceSeconds": graceSeconds}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 		return state
 	}
 	if state.(*MatchState).debug {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match terminate match_id %v tick %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), tick))
-		logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match terminate match_id %v grace seconds %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), graceSeconds))
+		logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match terminate match_id %v tick %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), tick))
+		logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match terminate match_id %v grace seconds %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), graceSeconds))
 	}
 	return state
 }
@@ -168,15 +168,15 @@ func (m *Match) MatchSignal(ctx context.Context, logger runtime.Logger, db *sql.
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatch.MatchSignal", "tick": tick, "state": state, "data": data}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 		return state, data
 	}
 	if state.(*MatchState).debug {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match signal match_id %v tick %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), tick))
-		logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("match signal match_id %v data %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), data))
+		logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match signal match_id %v tick %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), tick))
+		logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("match signal match_id %v data %v", ctx.Value(runtime.RUNTIME_CTX_MATCH_ID), data))
 	}
 	return state, data
 }

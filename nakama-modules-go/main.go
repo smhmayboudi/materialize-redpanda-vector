@@ -18,8 +18,6 @@ func InitModule(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runti
 	// shutdown := u.InitProvider(ctx, logger)
 	// defer shutdown()
 
-	// ctx = httptrace.WithClientTrace(ctx, otelhttptrace.NewClientTrace(ctx))
-
 	ctx, span := otel.Tracer(u.InstrumentationName).Start(
 		ctx,
 		"InitModule",

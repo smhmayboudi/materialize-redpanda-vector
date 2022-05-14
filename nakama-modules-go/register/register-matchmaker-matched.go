@@ -20,7 +20,7 @@ func RegisterMatchmakerMatched(ctx context.Context, logger runtime.Logger, db *s
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterMatchmakerMatched", "entries": entries}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 		return "", err

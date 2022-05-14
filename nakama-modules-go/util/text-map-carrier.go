@@ -66,24 +66,29 @@ func (m *TextMapCarrier) Keys() []string {
 
 var _ propagation.TextMapCarrier = (*TextMapCarrier)(nil)
 
-func (m *TextMapCarrier) Fields() map[string]interface{} {
-	fields := map[string]interface{}{}
-	if m.B3 != "" {
-		fields["b3"] = m.B3
-	}
+func (m *TextMapCarrier) MultipleField() map[string]interface{} {
+	field := map[string]interface{}{}
 	if m.ParentSpanId != "" {
-		fields["parent_span_id"] = m.ParentSpanId
+		field["parent_span_id"] = m.ParentSpanId
 	}
 	if m.Sampled != "" {
-		fields["sampled"] = m.Sampled
+		field["sampled"] = m.Sampled
 	}
 	if m.SpanId != "" {
-		fields["span_id"] = m.SpanId
+		field["span_id"] = m.SpanId
 	}
 	if m.TraceId != "" {
-		fields["trace_id"] = m.TraceId
+		field["trace_id"] = m.TraceId
 	}
-	return fields
+	return field
+}
+
+func (m *TextMapCarrier) SingleField() map[string]interface{} {
+	field := map[string]interface{}{}
+	if m.B3 != "" {
+		field["b3"] = m.B3
+	}
+	return field
 }
 
 func NewTextMapCarrier(ctx context.Context) *TextMapCarrier {

@@ -21,10 +21,10 @@ func RegisterEventSessionStart(ctx context.Context, logger runtime.Logger, evt *
 
 	if err := u.Redpanda(ctx, logger, map[string]interface{}{"name": "RegisterEventSessionStart", "event": evt}); err != nil {
 		textMapCarrier := u.NewTextMapCarrier(ctx)
-		logger.WithFields(textMapCarrier.Fields()).WithField("error", err).Error("Error calling redpanda")
+		logger.WithFields(textMapCarrier.MultipleField()).WithField("error", err).Error("Error calling redpanda")
 		span.RecordError(err)
 		span.SetStatus(codes.Error, "Error calling redpanda")
 	}
 	textMapCarrier := u.NewTextMapCarrier(ctx)
-	logger.WithFields(textMapCarrier.Fields()).Info(fmt.Sprintf("session start %v %v", ctx, evt))
+	logger.WithFields(textMapCarrier.MultipleField()).Info(fmt.Sprintf("session start %v %v", ctx, evt))
 }
