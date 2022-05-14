@@ -94,7 +94,6 @@ func (m *TextMapCarrier) SingleField() map[string]interface{} {
 func NewTextMapCarrier(ctx context.Context) *TextMapCarrier {
 	textMapCarrier := TextMapCarrier{}
 	b3 := b3.New(b3.WithInjectEncoding(b3.B3MultipleHeader | b3.B3SingleHeader))
-	b3.Extract(ctx, &textMapCarrier)
 	b3.Inject(ctx, &textMapCarrier)
 	return &textMapCarrier
 }

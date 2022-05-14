@@ -13,6 +13,7 @@ import (
 )
 
 func RegisterEventSessionEnd(ctx context.Context, logger runtime.Logger, evt *api.Event) {
+	ctx = trace.ContextWithRemoteSpanContext(ctx, u.NewSpanContext(ctx))
 	ctx, span := otel.Tracer(u.InstrumentationName).Start(
 		ctx,
 		"RegisterEventSessionEnd",

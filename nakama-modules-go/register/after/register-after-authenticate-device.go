@@ -13,6 +13,7 @@ import (
 )
 
 func RegisterAfterAuthenticateDevice(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, out *api.Session, in *api.AuthenticateDeviceRequest) error {
+	ctx = trace.ContextWithRemoteSpanContext(ctx, u.NewSpanContext(ctx))
 	ctx, span := otel.Tracer(u.InstrumentationName).Start(
 		ctx,
 		"RegisterAfterAuthenticateDevice",

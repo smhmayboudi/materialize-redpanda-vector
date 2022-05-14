@@ -13,6 +13,7 @@ import (
 )
 
 func RegisterAfterAddFriends(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, in *api.AddFriendsRequest) error {
+	ctx = trace.ContextWithRemoteSpanContext(ctx, u.NewSpanContext(ctx))
 	ctx, span := otel.Tracer(u.InstrumentationName).Start(
 		ctx,
 		"RegisterAfterAddFriends",

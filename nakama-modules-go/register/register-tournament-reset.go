@@ -13,6 +13,7 @@ import (
 )
 
 func RegisterTournamentReset(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, tournament *api.Tournament, end, reset int64) error {
+	ctx = trace.ContextWithRemoteSpanContext(ctx, u.NewSpanContext(ctx))
 	ctx, span := otel.Tracer(u.InstrumentationName).Start(
 		ctx,
 		"RegisterTournamentReset",

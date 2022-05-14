@@ -13,6 +13,7 @@ import (
 )
 
 func RegisterAfterWriteStorageObjects(ctx context.Context, logger runtime.Logger, db *sql.DB, nk runtime.NakamaModule, out *api.StorageObjectAcks, in *api.WriteStorageObjectsRequest) error {
+	ctx = trace.ContextWithRemoteSpanContext(ctx, u.NewSpanContext(ctx))
 	ctx, span := otel.Tracer(u.InstrumentationName).Start(
 		ctx,
 		"RegisterAfterWriteStorageObjects",
